@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoroastrismus | Pravda, Dobro, Čistota</title>
+    <!-- Fonty pro majestátní a čistý vzhled -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0503;
+            --bg-lighter: #1a0b06;
+            --fire-red: #d92400;
+            --fire-orange: #ff5722;
+            --fire-gold: #ffc107;
+            --fire-light: #fff3e0;
+            --text-light: #fdfbf7;
+            --text-muted: #d7c9b8;
+            --border-gold: rgba(255, 193, 7, 0.3);
+            --glass-bg: rgba(26, 11, 6, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 0%, #3d1404 0%, #0a0503 60%);
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, h4, .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+        }
+
+        /* Navigace */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-gold);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            color: var(--fire-gold);
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links li a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding-bottom: 5px;
+            position: relative;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--fire-orange);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links li a:hover::after, .nav-links li a.active::after {
+            width: 100%;
+            box-shadow: 0 0 8px var(--fire-orange);
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--fire-gold);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: var(--fire-gold);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hlavní obsah - SPA systém */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+            padding: 2rem 5%;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Domů - Oltář */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 70vh;
+            padding: 3rem 0;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            color: var(--fire-light);
+            text-shadow: 0 0 20px rgba(255, 243, 224, 0.5);
+            margin-bottom: 1rem;
+            letter-spacing: 4px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Oltář SVG s animacemi */
+        .altar-container {
+            width: 300px;
+            height: 350px;
+            position: relative;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 30px rgba(217, 36, 0, 0.4));
+        }
+
+        .glow-pulse {
+            animation: pulseGlow 4s infinite alternate;
+        }
+
+        .flame-main {
+            transform-origin: 50% 100%;
+            animation: flicker 0.12s infinite alternate;
+        }
+
+        .flame-inner {
+            transform-origin: 50% 100%;
+            animation: flickerInner 0.15s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        @keyframes flicker {
+            0% { transform: scaleY(1) skewX(0deg); opacity: 0.9; }
+            25% { transform: scaleY(1.05) skewX(1deg); opacity: 1; }
+            50% { transform: scaleY(0.95) skewX(-1deg); opacity: 0.8; }
+            75% { transform: scaleY(1.02) skewX(0.5deg); opacity: 0.95; }
+            100% { transform: scaleY(0.98) skewX(-0.5deg); opacity: 0.85; }
+        }
+
+        @keyframes flickerInner {
+            0% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+            50% { transform: scaleY(1.1) scaleX(0.95); opacity: 1; }
+            100% { transform: scaleY(0.9) scaleX(1.05); opacity: 0.8; }
+        }
+
+        /* Modlitby - design bloků */
+        .prayer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--fire-gold);
+            margin-bottom: 3rem;
+            text-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '♦';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            color: var(--fire-orange);
+        }
+
+        .prayer-card {
+            background: linear-gradient(145deg, rgba(30, 15, 8, 0.7) 0%, rgba(15, 5, 2, 0.9) 100%);
+            border: 1px solid var(--border-gold);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 87, 34, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .prayer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(255, 87, 34, 0.1);
+            border-color: rgba(255, 193, 7, 0.6);
+        }
+
+        .prayer-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--fire-gold), var(--fire-red));
+        }
+
+        .prayer-title {
+            font-size: 1.8rem;
+            color: var(--fire-light);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+        }
+        
+        .prayer-subtitle {
+            font-size: 1.1rem;
+            color: var(--fire-gold);
+            margin-bottom: 1.5rem;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        .prayer-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            white-space: pre-line;
+            font-weight: 300;
+        }
+
+        .time-badge {
+            display: inline-block;
+            background: rgba(255, 87, 34, 0.1);
+            color: var(--fire-orange);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 87, 34, 0.3);
+        }
+
+        .prayer-section-title {
+            color: var(--fire-light);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Cookies Banner */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 5, 3, 0.95);
+            border-top: 2px solid var(--fire-red);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.8);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        #cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            max-width: 70%;
+        }
+
+        .cookie-btn {
+            background: linear-gradient(45deg, var(--fire-orange), var(--fire-red));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(217, 36, 0, 0.4);
+        }
+
+        .cookie-btn:hover {
+            box-shadow: 0 0 25px rgba(255, 87, 34, 0.8);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 193, 7, 0.1);
+            color: rgba(215, 201, 184, 0.5);
+            font-size: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        /* Responzivita */
+        @media (max-width: 900px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 73px; /* výška hlavičky */
+                right: -100%;
+                width: 100%;
+                height: calc(100vh - 73px);
+                background: rgba(10, 5, 3, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3rem;
+                transition: 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li a {
+                font-size: 1.5rem;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            .cookie-text {
+                max-width: 100%;
+                margin-bottom: 1rem;
+                text-align: center;
+            }
+            
+            #cookie-banner {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hlavička a navigace -->
+    <header>
+        <div class="nav-logo" onclick="switchPage('home')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C12 22 19 16 19 10C19 6.13401 15.866 3 12 3C11.5 5.5 11 7 9 9C6 6 6 6 6 6C6 6 4 8.5 4 11.5C4 16.5 12 22 12 22Z" fill="#ff5722"/>
+                <path d="M12 22C12 22 16 17.5 16 12.5C16 9.5 14 7.5 12 7.5C11.5 9.5 11 11 9.5 12.5C7.5 10 7.5 10 7.5 10C7.5 10 6 12 6 14C6 17.5 12 22 12 22Z" fill="#ffc107"/>
+            </svg>
+            Zoroastrismus
+        </div>
+        <ul class="nav-links">
+            <li><a class="nav-item active" data-target="home" onclick="switchPage('home')">Domů</a></li>
+            <li><a class="nav-item" data-target="prayers" onclick="switchPage('prayers')">Modlitby zoroastrismu</a></li>
+            <li><a class="nav-item" data-target="five-prayers" onclick="switchPage('five-prayers')">Pět modliteb</a></li>
+            <li><a class="nav-item" data-target="gathas" onclick="switchPage('gathas')">Gáthy</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- Hlavní obsah - SPA (Single Page Application) struktura -->
+    <main>
+        <!-- Podstránka: Domů -->
+        <section id="home" class="page-section active">
+            <div class="hero-section">
+                <h1 class="hero-title">Pravda, Dobro, Čistota</h1>
+                <p class="hero-subtitle">Vítejte ve svatyni světla. Místo pro ztišení, modlitbu a hledání vnitřní pravdy v posvátném ohni.</p>
+                
+                <!-- Majestátní oltář SVG -->
+                <div class="altar-container">
+                    <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="glowGlow" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="#ff9d00" stop-opacity="0.7" />
+                                <stop offset="50%" stop-color="#ff3300" stop-opacity="0.3" />
+                                <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+                            </radialGradient>
+                            <linearGradient id="altarStone" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#2a1b14" />
+                                <stop offset="50%" stop-color="#3d281f" />
+                                <stop offset="100%" stop-color="#1e110c" />
+                            </linearGradient>
+                            <linearGradient id="goldTrim" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#b8860b" />
+                                <stop offset="50%" stop-color="#ffd700" />
+                                <stop offset="100%" stop-color="#b8860b" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Zář ohně -->
+                        <circle cx="100" cy="110" r="90" fill="url(#glowGlow)" class="glow-pulse" />
+                        
+                        <!-- Oltář base -->
+                        <path d="M 50 230 L 150 230 L 140 180 L 60 180 Z" fill="url(#altarStone)" stroke="#111" stroke-width="2"/>
+                        <path d="M 60 180 L 140 180 L 130 160 L 70 160 Z" fill="url(#altarStone)" stroke="#111" stroke-width="1"/>
+                        <rect x="40" y="230" width="120" height="20" fill="url(#altarStone)" stroke="#111" stroke-width="2"/>
+                        
+                        <!-- Zlaté zdobení oltáře -->
+                        <rect x="65" y="178" width="70" height="4" fill="url(#goldTrim)" />
+                        <rect x="45" y="232" width="110" height="6" fill="url(#goldTrim)" />
+                        
+                        <!-- Posvátná mísa -->
+                        <path d="M 70 160 Q 100 175 130 160 L 135 150 L 65 150 Z" fill="url(#goldTrim)"/>
+                        
+                        <!-- Věčný Oheň -->
+                        <g transform="translate(0, -10)">
+                            <!-- Vnější plamen -->
+                            <path class="flame-main" d="M 100 160 Q 70 120 90 80 Q 105 105 100 115 Q 120 75 100 30 Q 140 90 105 125 Q 130 140 100 160" fill="rgba(217, 36, 0, 0.8)" />
+                            <!-- Střední plamen -->
+                            <path class="flame-main" style="animation-delay: 0.1s" d="M 100 160 Q 80 130 95 95 Q 102 110 100 120 Q 115 90 100 50 Q 125 100 105 130 Q 115 145 100 160" fill="#ff5722" />
+                            <!-- Vnitřní plamen -->
+                            <path class="flame-inner" d="M 100 160 Q 85 140 95 110 Q 100 120 100 130 Q 110 105 100 70 Q 115 115 105 135 Q 110 150 100 160" fill="#ffc107" />
+                            <!-- Jádro plamene -->
+                            <path class="flame-inner" style="animation-delay: 0.05s" d="M 100 160 Q 92 145 97 125 Q 100 135 100 140 Q 105 120 100 95 Q 110 125 103 145 Q 105 155 100 160" fill="#fff3e0" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Podstránka: Modlitby zoroastrismu -->
+        <section id="prayers" class="page-section">
+            <div class="prayer-container">
+                <h2 class="section-title">Modlitby zoroastrismu</h2>
+                
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Ašem Vohu</h3>
+                    <div class="prayer-subtitle">(Modlitba o Pravdě a Štěstí)</div>
+                    <div class="prayer-text">
+                        Pravda a Spravedlnost (Aša) je to nejvyšší ze všech dobrých věcí.
+                        Pravda je samotným štěstím.
+                        Šťastný je ten člověk, který žije v úplné Pravdě a Poctivosti!
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Ahunavar</h3>
+                    <div class="prayer-subtitle">(Modlitba Volby a Dobrých Skutků)</div>
+                    <div class="prayer-text">
+                        Vůle Pána Moudrosti je zákonem Pravdy a Spravedlnosti.
+                        Dar Dobré Mysli dostane ten, kdo koná své činy pro Moudrost a svět.
+                        Ten, kdo pomáhá chudým a potřebným, dává vládnout Ahura Mazdovi.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Podstránka: Pět modliteb -->
+        <section id="five-prayers" class="page-section">
+            <div class="prayer-container">
+                <h2 class="section-title">Pět modliteb</h2>
+
+                <!-- 1. Ušahin Gāh -->
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Ušahin Gāh</h3>
+                    <div class="time-badge">Rozmezí: 06:00 – 07:00</div>
+                    <div class="prayer-subtitle">Ušahin Gāh (Modlitba při probuzení / Před úsvitem)</div>
+                    
+                    <div class="prayer-section-title">Prohlášení:</div>
+                    <div class="prayer-text">Přihlašuji se k Ahura Mazdovi, Bohu Moudrosti. Následuji učení Zarathuštry, odmítám zlo i lež a přijímám cestu Pravdy a Řádu.
+                    Věnuji tuto chvíli při probuzení úctě k přicházejícímu ránu, k probouzejícímu se světlu a čisté mysli.</div>
+                    
+                    <div class="prayer-section-title">Oslava Světla a Svědomí:</div>
+                    <div class="prayer-text">Vracím úctu Ahura Mazdovi, proroku Zarathuštrovi i vnitřnímu Ohni.
+                    Vzdávám úctu přicházejícímu úsvitu, který rozhání temnotu po celé Zemi. Vzdávám úctu všímavosti, poctivosti, vnitřnímu hlasu svědomí a spravedlnosti, které nás chrání a vedou správným směrem.</div>
+                    
+                    <div class="prayer-section-title">Úcta k rodině a činu:</div>
+                    <div class="prayer-text">Vážím si pečujícího prostředí domova a všech dobrých myšlenek, slov a skutků – těch, které už byly vykonány, i těch, které nás v novém dni čekají.
+                    Vážím si každého člověka, muže i ženy, v whose srdci žije Pravda.</div>
+                    
+                    <div class="prayer-section-title">Prosba o sílu a zdraví:</div>
+                    <div class="prayer-text">Kéž mám v novém dni pevné zdraví, sílu v těle i mysli, odolnost a dlouhý, smysluplný život. Kéž prožívám radost a vnitřní mír, které přicházejí s poctivým životem.</div>
+                    
+                    <div class="prayer-section-title">Přání pro svět:</div>
+                    <div class="prayer-text">Odmítám chyby a temnotu. Konám dobro pro čistotu své vlastní duše. Kéž se dobrota, pravda a mír rozšíří po celé Zemi – tak daleko, jak tečou řeky, a tak vysoko, jak svítí slunce.
+                    Kéž se tak stane.</div>
+                </div>
+
+                <!-- 2. Hāvan Gāh -->
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Hāvan Gāh</h3>
+                    <div class="time-badge">Rozmezí: 08:30 – 09:30</div>
+                    <div class="prayer-subtitle">Hāvan Gāh (Ranní modlitba)</div>
+                    
+                    <div class="prayer-section-title">Prohlášení:</div>
+                    <div class="prayer-text">Přihlašuji se k Ahura Mazdovi, Bohu Moudrosti. Následuji učení Zarathuštry, odmítám zlo a lež a přijímám cestu Pravdy a Řádu.
+                    Věnuji tuto ranní chvíli úctě k rannímu času, světlu a všemu dobrému.</div>
+                    
+                    <div class="prayer-section-title">Oslava Dobra:</div>
+                    <div class="prayer-text">Vracím úctu Ahura Mazdovi i proroku Zarathuštrovi. Vzdávám úctu všemu, co ochraňuje život – rannímu slunci, čistému vzduchu, přírodním zákonům, zdraví a udržitelnosti.
+                    Vzdávám úctu učení Moudrosti i památce všech dobrých lidí, kteří žili před námi.</div>
+                    
+                    <div class="prayer-section-title">Úcta k činům:</div>
+                    <div class="prayer-text">Vážím si všech dobrých skutků, které už byly vykonány, i těch, které teprve vykonavatelé udělá. Vážím si každého člověka – muže i ženy –, v jehož srdci žije Pravda a Poctivost.</div>
+                    
+                    <div class="prayer-section-title">Prosba o sílu a zdraví:</div>
+                    <div class="prayer-text">Kéž mám pevné zdraví, sílu v těle i mysli a dlouhý, smysluplný život. Kéž prožívám radost a mír, které vycházejí z poctivého života.</div>
+                    
+                    <div class="prayer-section-title">Přání pro svět:</div>
+                    <div class="prayer-text">Odmítám chyby a zlo. Konám dobro pro čistotu své vlastní duše. Kéž se dobrota, spravedlnost a mír rozšíří do celého světa – tak daleko, jak tečou řeky, a tak vysoko, jak svítí slunce.
+                    Kéž se tak stane.</div>
+                </div>
+
+                <!-- 3. Rapithwin Gāh -->
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Rapithwin Gāh</h3>
+                    <div class="time-badge">Rozmezí: 11:30 – 12:30</div>
+                    <div class="prayer-subtitle">Rapithwin Gāh (Polední modlitba)</div>
+                    
+                    <div class="prayer-section-title">Prohlášení:</div>
+                    <div class="prayer-text">Přihlašuji se k Ahura Mazdovi, Bohu Moudrosti. Následuji učení Zarathuštry, odmítám zlo i lež a přijímám cestu Pravdy a Řádu.
+                    Věnuji tuto polední chvíli úctě k polednímu času, plnému světlu a nejvyšší spravedlnosti.</div>
+                    
+                    <div class="prayer-section-title">Oslava Pravdy a Ohně:</div>
+                    <div class="prayer-text">Vracím úctu Ahura Mazdovi, proroku Zarathuštrovi i posvátnému vnitřnímu Ohni – symbolu čistoty a Boží přítomnosti v nás.
+                    Vzdávám úctu Pravdě, poctivému slovu, které poráží lež, a všemu živému: čisté vodě, Zemi, rostlinám i přírodním silám, které podporují život.</div>
+                    
+                    <div class="prayer-section-title">Úcta k mudrcům a činu:</div>
+                    <div class="prayer-text">Vážím si všech moudrých myšlenek a všech dobrých skutků – těch, které už byly vykonány, i těch, které lidé ještě vykonají.
+                    Vážím si každého člověka, muže i ženy, v jehož srdci žije Pravda.</div>
+                    
+                    <div class="prayer-section-title">Prosba o sílu a zdraví:</div>
+                    <div class="prayer-text">Kéž mám pevné zdraví, fyzickou i duševní sílu, odolnost a dlouhý, smysluplný život. Kéž prožívám radost a vnitřní mír, které přicházejí s poctivostí.</div>
+                    
+                    <div class="prayer-section-title">Přání pro svět:</div>
+                    <div class="prayer-text">Odmítám chyby a temnotu. Konám dobro pro čistotu své duše. Kéž se dobrota, pravda a spravedlnost rozšíří po celé Zemi – tak daleko, jak tečou řeky, a tak vysoko, jak svítí slunce.
+                    Kéž se tak stane.</div>
+                </div>
+
+                <!-- 4. Uzērin Gāh -->
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Uzērin Gāh</h3>
+                    <div class="time-badge">Rozmezí: 14:30 – 15:30</div>
+                    <div class="prayer-subtitle">Uzērin Gāh (Odpolední modlitba)</div>
+                    
+                    <div class="prayer-section-title">Prohlášení:</div>
+                    <div class="prayer-text">Přihlašuji se k Ahura Mazdovi, Bohu Moudrosti. Následuji učení Zarathuštry, odmítám zlo i lež a přijímám cestu Pravdy a Řádu.
+                    Věnuji tuto odpolední chvíli úctě k odpolednímu času, poctivé práci a přírodní harmonii.</div>
+                    
+                    <div class="prayer-section-title">Oslava Života a Přírody:</div>
+                    <div class="prayer-text">Vracím úctu Ahura Mazdovi, proroku Zarathuštrovi i všem, kteří vědomě konají dobro.
+                    Vzdávám úctu čistým vodám, slunci, měsíci a hvězdám – všemu světlu, které osvětluje náš svět. Vážím si všech lidí, kteří poctivě plní svoje povinnosti a pečují o své okolí ve dne i v noci.</div>
+                    
+                    <div class="prayer-section-title">Úcta k mudrcům a činu:</div>
+                    <div class="prayer-text">Vážím si vnitřního ohně čistoty, učení Moudrosti i všech dobrých skutků – těch, které už byly vykonány, i těch, které ještě vykonáme.
+                    Vážím si každého člověka, muže i ženy, v jehož srdci žije Pravda.</div>
+                    
+                    <div class="prayer-section-title">Prosba o sílu a zdraví:</div>
+                    <div class="prayer-text">Kéž mám pevné zdraví, sílu v těle i mysli, odolnost a dlouhý, smysluplný život. Kéž prožívám radost a vnitřní klid, které vycházejí z poctivého života.</div>
+                    
+                    <div class="prayer-section-title">Přání pro svět:</div>
+                    <div class="prayer-text">Odmítám chyby a temnotu. Konám dobro pro čistotu své vlastní duše. Kéž se dobrota, pravda a mír rozšíří po celé Zemi – tak daleko, jak tečou řeky, a tak vysoko, jak svítí slunce.
+                    Kéž se tak stane.</div>
+                </div>
+
+                <!-- 5. Aiwisrūthrem Gāh -->
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Aiwisrūthrem Gāh</h3>
+                    <div class="time-badge">Rozmezí: 17:30 – 18:30</div>
+                    <div class="prayer-subtitle">Aiwisrūthrem Gāh (Večerní modlitba před spaním)</div>
+                    
+                    <div class="prayer-section-title">Prohlášení:</div>
+                    <div class="prayer-text">Přihlašuji se k Ahura Mazdovi, Bohu Moudrosti. Následuji učení Zarathuštry, odmítám zlo i lež a přijímám cestu Pravdy a Řádu.
+                    Věnuji tuto večerní chvíli úctě ke klesajícímu dni, zklidnění mysli a všem lidem, kteří tvoří dobrý domov.</div>
+                    
+                    <div class="prayer-section-title">Oslava Společenství a Rovnosti:</div>
+                    <div class="prayer-text">Vracím úctu Ahura Mazdovi, proroku Zarathuštrovi i posvátnému vnitřnímu Ohni.
+                    Vzdávám úctu všem poctivě pracujícím – těm, co pěstují jídlo, tvoří, chrání domovy i pečují o rodiny. Vzdávám úctu stejně tak dobrým a moudrým ženám, jakož i dobrým a moudrým mužům, kteří šíří Dobré myšlenky, Dobrá slova a Dobré skutky.</div>
+                    
+                    <div class="prayer-section-title">Ochrana Domova a Činu:</div>
+                    <div class="prayer-text">Vážím si všech rodin, domovů i celých společenství, kde vládne spravedlnost, mír a bezpečí.
+                    Vážím si všech dobrých skutků – těch, které už byly vykonány, i těch, které lidstvo ještě vykoná.</div>
+                    
+                    <div class="prayer-section-title">Prosba o sílu a zdraví:</div>
+                    <div class="prayer-text">Kéž mám pevné zdraví, fyzickou i duševní sílu, ochranu před zlem a dlouhý, smysluplný život. Kéž prožívám radost a vnitřní klid, které přicházejí s poctivostí.</div>
+                    
+                    <div class="prayer-section-title">Přání pro svět:</div>
+                    <div class="prayer-text">Odmítám chyby a temnotu. Konám dobro pro čistotu své vlastní duše. Kéž se dobrota, pravda a mír rozšíří po celé Zemi – tak daleko, jak tečou řeky, a tak vysoko, jak svítí slunce.
+                    Kéž se tak stane.</div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Nová podstránka: Gáthy -->
+        <section id="gathas" class="page-section">
+            <div class="prayer-container">
+                <h2 class="section-title">Gáthy</h2>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 28</h3>
+                    <div class="prayer-text">
+V pokorné úctě, s rozepjatýma rukama se k Tobě modlím, ó Mazdo! Především mi skrze Tvého Svatého Ducha dopřej veškerou spravedlnost v činech a veškerou moudrost Dobré Mysli, abych tím mohl přinést radost Duši celého Stvoření.
+
+Ó Moudrý Pane, kéž díky Dobré Mysli dosáhnu Tvé Přítomnosti. Dopřej mi požehnání v obou světech, tělesném i duchovním, dosažitelná skrze Spravedlnost; Tvé odměny, které přinášejí blažené štěstí věrným, jež jsou jim obdařeni.
+
+Jako nikdy předtím pro Tebe budeme tkát své písně, ó Mazdo Ahuro, i pro Vás, Duchové Pravdy a Dobré Mysli; pak Armaity, Duch Dobrotivosti, nechá vzkvétat nepomíjitelné Království Nebeské. Pro tuto dokonalost všichni přijďte k mým voláním.
+
+S pomocí Dobré Mysli odvedu probuzenou duši do vznešeného příbytku; znajíc blažené odměny Moudrého Pána za spravedlivé činy; dokud budu mít sílu a schopnosti, budu učit všechny hledat Pravdu a Právo.
+
+Ó Ašo, vybavený poznáním Pravdy a Spravedlnosti, kdy Tě uvidím a s Tebou i Vohu-Manovi? A skrze to Inspiraci (Sraošu), kdy budu v přítomnosti Nejštědřejšího Mazdy? Vyhlášením těchto posvátných slov přimějeme zlé, aby se obrátili k Tobě, ó Svatý Mazdo!
+
+Přijď, ó Věčný Moudrý Duchu, skrze Dobrou Mysl, s dlouhotrvajícím darem Spravedlnosti dopřaným v Tvých vznešených slovech. Dopřej Zarathuštrovi i nám všem Svou laskavou pomoc, ó Ahuro, skrze niž přemůžeme zlo těch, kdo páchají neprávost.
+
+Dopřej mi, ó Pravdo, požehnání, které je ovocem Dobré Mysli. Dopřej mi, ó Oddanosti, mně i Vištáspovi, naši touhu po účinnosti, a dopřej, ó Mazdo, svrchovaný Pane, abych přednášením Tvých posvátných slov zjevení dával slyšet Tvé šťastné poselství.
+
+Ó Ty, Nejlepší, v souladu s Nejvyšší Pravdou, o to nejlepší požehnání Tě prosím pro vznešeného Frašaoštru i pro sebe. A ráč nám dopřát po všechny časy dar Dobré Mysli.
+
+A obdařeni těmito dary my, kteří jsme Ti vždy obětovali svoje písně chvály, Tě nerozhněváme, ó Mazdo, ani Vás, Pravdo a Nejlepší Mysli; Vás, kteří jste nejužitečnější k podpoře Království Blaženosti.
+
+Ty, o kterých víš, že jsou plně hodni pro svou Spravedlnost a Dobrou Mysl, těm naplň jejich touhu po dosažení cíle, ó Mazdo Ahuro. Neboť dobře vím, že slova těchto obětí písní směrovaná k tebe k spravedlivým cílům budou mít svůj blažený účinek.
+
+A skrze tyto božské písně budu navždy uchovávat Spravedlnost a Dobrou Mysl pro lidi. Abys mi umožnil všechny poučit, nauč mě, ó Mazdo Ahuro, skrze Svého vlastního Ducha a Svá vlastní Slova princip stvoření prvního bytí.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3: Životní rovnováha začíná čistou myslí a poctivostí. Kdo jedná spravedlivě v běžných dnech i duchovním životě, přináší užitek a klid celému svému okolí.
+
+Část 4–6: Dokud máš sílu, tvou povinností je vzdělávat se, držet se pravdy a pomáhat druhým. Správné myšlení je nejlepší branou k překonání překážek a zla.
+
+Část 7–9: Skutečná autorita a úspěch vycházejí z vytrvalosti a práce pro širší dobro. Pokud stavíš své konání na poctivých zásadách, tvoje úsilí přirozeně nese trvalé ovoce.
+
+Část 10–11: Dobré úmysly spojené s jasnou vizí mají reálnou sílu měnit věci k lepšímu. Vzdělávání se v základních principech života ti umožňuje chránit správné hodnoty a vést ostatní.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 29</h3>
+                    <div class="prayer-text">
+K Tobě, ó Pane, volala Duše Stvoření:
+„Pro koho Jsi mě stvořil a kdo me tak utvářel?
+Svár a zuřivost, násilí a drzá moc mě utlačují;
+nemám nikoho, kdo by mě ochránil, kromě Tebe;
+přikaz pro mě požehnání urovnaného, pokojného života.“
+
+Nato se Stvořitel zeptal Aši:
+„Koho chceš mít jako spasitele světa,
+aby byl jeho ochráncem a strážcem řádu?
+Kdo se svou moudrostí a horlivostí přinese blahobyt;
+koho chceš mít jako jeho pána, jenž odrazí násilí
+a zapudí síly Zla?“
+
+Tak odpovídá Aša, Pravda, Pánu:
+„Není znám žádný průvodce, který by ochránil svět před strastí,
+nikdo, kdo ví, co hýbe a uskutečňuje Tvé vznešené plány.
+Nejmocnější z bytostí je ten, k jehož pomoci
+spěchám na zavolání.“
+
+Mazda ví nejlépe, jaké skutky vykonali
+pachatelé Zla a jejich následovníci;
+a Ví, co jimi bude vykonáno kdykoliv potom.
+Pán, Ahura, je jediným rozhodčím;
+pro nás nechť je tak, jak On určuje.
+
+A tak jsme se my dva, má duše a duše stvoření,
+modlili s rozepjatýma rukama k Pánu;
+a tak jsme dva naléhali na Mazdu s těmito prosbami:
+„Nechť zkáza nepostihne spravedlivě žijící,
+nechť pilní a dobří netrpí z rukou zlých.“
+
+Tehdy promluvil Ahura Mazda, Pán porozumění a moudrosti:
+„Jelikož není spravedlivého duchovního pána ani světského vůdce,
+učinil jsem tě (Zarathuštro) jako Stvořitel ochráncem a průvodcem,
+pro blaho světa a jeho pilných lidí.“
+
+Moudrý Pán s duchem Pravdy a Spravedlnosti
+stvořil tyto posvátné hymny,
+Dobrotivá Prozřetelnost dala tato učení
+pro blaho světa a jeho spravedlivých lidí.
+Koho Jsi, ó Mazdo, určil, aby skrze Dobrou Mysl
+rozdával tyto dary smrtelníkům?
+
+(Tak promluvil Ahura Mazda):
+„Ten, který jako jediný naslouchal mým přikázáním,
+je znám jako Zarathuštra Spitama;
+pro svého Stvořitele a pro Pravdu si přeje oznámit
+Posvátné Poselství,
+proto mu udělím dar výmluvného slova.“
+
+Nato zvolala Duše Stvoření:
+„Ve svých strastech jsem získala za pomoc slabý hlas
+pokorného člověka,
+zatímco jsem si přála mocného vládce!
+Kdy vůbec získám někoho, kdo mi pomůže s mocí
+a se silou?“
+
+Ó Ahuro Mazdo a ó Duchu Pravdy a Práva!
+Udělte mi a mým následovníkům takovou autoritu
+a moc skrze Pravdu,
+abychom s Dobrou Myslí mohli přinést světu
+mír a štěstí,
+jejichž Jsi Ty, ó Pane, věru prvním vlastníkem.
+
+Kdy Pravda, Dobrá Mysl a Svatá Moc
+ke mně plně pospěší, můj Pane?
+Přiděl mi je pro to velké uspořádání.
+A věru, dopřej nyní nám, Svým oddaným služebníkům,
+Svou laskavou pomoc pro tuto Velkou Věc!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–5: Svět kolem nás často působí chaoticky a plný nespravedlnosti. Místo pasivního stěžování si je potřeba hledat řešení v rozumu a spravedlnosti, ne v dalším agresi.
+
+Část 6–8: Skutečným lídrem a zachráncem není ten, kdo má hrubou sílu nebo zbraně, ale ten, kdo přináší myšlenky, poctivost a dokáže ostatní oslovit slovy a příkladem.
+
+Část 9–11: Lidstvo má tendenci spoléhat na mocné autority a fyzickou sílu, ale reálná a trvalá změna k lepšímu vychází z nenápadné, vytrvalé práce, čistého svědomí a dobré mysli.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 30</h3>
+                    <div class="prayer-text">
+Ó vy, kdo přicházíte hledat moudrost, nyní vám vyhlásím poselství Moudrého Stvořitele, hymny pro Ahuru a oběti Dobré Mysli, trvalou posvátnou Pravdu a slavnou vizi Nebeských Světel dosažitelnou skrze vznešenou Pravdu.
+
+Naslouchejte svýma ušima těmto nejlepším radám, přemýšlejte o nich s osvíceným úsudkem. Nechť si každý zvolí své vyznání s tou svobodou volby, kterou musí mít každý při velkých událostech. Ó vy, buďte bdělí k těmto mým oznámením.
+
+Na počátku byli dva prastavení duchové, dvojčata samovolně činná, to jsou Dobro a Zlo, v myšlence, ve slově a v činu. Mezi těmito dvěma nechť moudří zvolí správně. Buďte dobří, ne nízkí!
+
+A když se tato Dvojčata zpočátku setkala, ustanovila Život a Popření Života; a tak tomu bude, dokud trvá svět. Nejhorší existence bude údělem následovníků zlá a stav Nejlepšího Vědomí bude odměnou spravedlivým.
+
+Z těchto Dvojčat si Zlý duch vybírá konání toho nejhoršího, zatímco nejštědřejší Svatý Duch Dobroty, odívající se do nepomíjivých nebes, volí Pravdu a Spravedlnost. A tak učiní i ti, kdo by se chtěli zalíbit Ahurovi Mazdovi spravedlivými činy, vykonanými s vírou v Pravdu.
+
+Mezi těmito dvěma Duchy nedokázali uctívači démonů správně rozlišit. K nim přišel Podvod v čase rozhodnutí a oni si zvolili Nejhorší Mysl. S násilím pak všichni spěchali, aby zničili život ve světě.
+
+A k podpoře tohoto života přichází Armaity, duch Dobrotivosti a Správného Smýšlení. Spolu s Duchem Svaté Moci, Dobré Mysli a Pravdy, aby duše, procházející zkouškou pravdy, byla s Tebou, ó Pane.
+
+A až přijde konečné zúčtování pro zlé, tehdy na Tvůj Příkaz Dobrá Mysl ustanoví Království Nebeské, ó Ahuro! Pro ty, kdo vydají Ne-pravdu do rukou Pravdy.
+
+Kéž jsme i my jako ti, kdo posouvají svět napřed k dokonalosti; kéž nám Mazda a Božští Duchové pomáhají a vedou naše úsilí skrze Pravdu; neboť přemýšlející člověk je domovem Moudrosti.
+
+Tehdy věru přijde úder zkázy na Ne-pravdu; zatímco ti dobrého jména budou přijati v zaslíbeném příbytku, požehnaném příbytku Dobré Mysli, Pravdy a Moudrého Pána.
+
+Ó vy smrtelníci, dbejte těchto přikázání, přikázání, která Moudrý Pán dal pro štěstí i pro bolest: dlouhé utrpení pro pachatele Zla a blaženost pro následovníka Pravdy, osvícení spásy pro Spravedlivé navěky.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3: Svoboda volby je tvým největším darem i odpovědností. Nikdo by ti neměl diktovat, jak myslet; sám si na základě rozumu zvol, zda budeš stavět na dobru, nebo podléhat nízkým tendencím.
+
+Část 4–6: Každé tvé rozhodnutí směřuje buď k tvorbě a podpoře života, nebo k jeho ničení. Slepá důvěra v podvody a zkratkovitá řešení přináší jen chaos a destrukci.
+
+Část 7–9: Aktivně posouvat svět k lepšímu vyžaduje laskavost spojenou s jasným rozumem. Pravdivost a promyšlené jednání z tebe dělají člověka, u kterého je moudrost doma.
+
+Část 10–11: Lež a nečestnost mají krátké nohy a v dlouhodobém horizontu vedou k osobnímu i společenskému úpadku. Dlouhodobý klid a spokojenost si zajistíš jen tím, že zůstaneš věrný pravdě.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 31</h3>
+                    <div class="prayer-text">
+Vy, kdo jste odhodláni se učit, vám hlásám toto poselství, dosud neslyšené těmi, kdo ničivými způsoby Ducha Lži rozvracejí civilizaci Spravedlivých – poselství nejvíce vítané Tvými následovníky, kteří jsou Ti zasvěceni, ó Mazdo!
+
+Jelikož nepoznáváte věčné pravdy a nerozpoznáváte lepší život, přicházím k vám všem, abych vás vedl ke správné volbě mezi dvěma stranami, abychom odtud žili v souladu s Pravdou a Právem.
+
+Řekni mi, ó Mazdo – to, co udělíš skrze Svého Ducha a Oheň, požehnání, které přidělíš skrze Pravdu těm, kdo jednají s rozvahou, Svatý Zákon pro jejich osvícení. Dej to ve Svém vlastním inspirovaném slově, abych tím přinesl jeho uskutečnění všem.
+
+Jak slyšíš naši modlitbu, ó Pane, dej nám Pravdu, dej nám pomoc Božských Duchů, dej nám požehnání Armaity, Ducha Dobrotivosti, a skrze práci Nejlepší Mysli nám dej mocné Království, abychom tím přemohli Zlého Ducha Ne-pravdy.
+
+Prohlas mi, co Jsi mi skrze Právo určil jako ten lepší podíl; nauč mě s pomocí Dobré Mysli znát a chápat svůj stav a oznam mi, ó Mazdo Ahuro, všechno to, co má a nemá být.
+
+Jeho stav je věru Nejlepší, kdo pravdivě hlásá poselství posvátné moudrosti: poselství dokonalosti bytí a náležité nesmrtelnosti, Mazdova Království, které navždy vzkvétá skrze Dobrou Mysl.
+
+Ten, který na Samém Počátku takto pomyslel: Nechť jsou slavná nebesa oděna v světlo; On Svým svrchovaným rozumem stvořil principy Pravdy a Světla, čímž umožnil smrtelníkům udržovat Dobrou Mysl. Ó Moudrý Pane, ó stále stejný Ahuro, Svým Svatým Duchem dej těmto říším vzkvétat.
+
+Nejenže jsem si Tě představil, ó Mazdo, jako Samého Prvního a Posledního, jako Otce Dobré Mysli, jako opravdového Stvořitele Pravdy a Práva, jako Pána Soudce našich činů v životě – já jsem to vše spatřil svýma vlastníma očima!
+
+Tvůj byl Armaity, Duch Dobrotivosti, Tvá byla Moudrost, která stvořila Život, Tvůj byl Božský Duch, který ustanovil volbu mezi pilným ochráncem stvoření a tím, kdo pilný není.
+
+Z těchto dvou si Stvoření zvolilo pilného ochránce pečujícího o dobytek, jako spravedlivého pána a toho, kdo má Dobrou Mysl. Klamající lenoch, který nechrání, nemá na Posvátném Poselství žádný podíl.
+
+Svou dokonalou Inteligencí, ó Mazdo, Jsi nás nejprve stvořil s těly a duchovním svědomím a Svou Myšlenkou Jsi našim bytostem dal moc myslet, mluvit a jednat. Ponechal Jsi nás tak svobodné vybrat si svou víru podle vlastní vůle.
+
+Každý pozvedá svůj hlas, ať už mluví pravdu, nebo lže, ten, kdo ví, i ten, kdo neví, každý podle svého srdce a mysli; nechť Armaity apeluje na duchy kolísající v pochybách.
+
+Učení a činy, jasně zjevné i jen matně rozpoznané, i ty, které ukládají velké pokání za nepatrný přečin – tyto všechny skrze Tvou Pravdu neuniknou Tvému zraku.
+
+Na to se Tě ptám, Ahuro! Z událostí, které se dějí a které se mají stát, jaké odplaty podle jejich činů jsou určeny pro pravdomluvné spravedlivé a jaké pro lživé hříšníky?
+
+Na to se Tě ptám, Ahuro! Jaké pokání je určeno pro toho, kdo usiluje o dosažení vlády pro Lháře; pro toho se zlými činy, kdo nehledá své živobytí bez škodění stádu pastýře; a pro dobré, kteří nenásledují hlas Ne-pravdy?
+
+A na to se Tě ptám, ó Mazdo Ahuro! Pravdomluvný spravedlivý usilující o ustanovení vlády, která podpoří blaho jeho domu, jeho kraje a jeho země – jak bude jeho duch podoben Tobě? Kdy bude hoden Tebe? Jaké jeho činy Ti budou nej přijatelnější?
+
+Nechť ten, kdo ví, řekne tomu, kdo by chtěl vědět, které z vyznání je lepší, víra spravedlivého, nebo lháře? Nechť neosvícení již více neklamou! Buď nám, ó Mazdo Ahuro, dárcem Dobré Myšlenky.
+
+Ať tedy nikdo nedopřává sluchu slovům zlého lháře, lháře přinášejícího zkázu a zmar domu i rodu, kraji i zemi. Odporujte mu tedy silou.
+
+Naslouchejte tomu, kdo říká Pravdu, uzdravovateli bytí, naslouchejte tomu, kdo myslí na Spravedlnost, naslouchejte tomu osvícenému a vědoucímu, který stoje před Tvým svatým Ohněm svými mocnými slovy a výmluvným jazykem zjevuje pravdu soupeřícím stranám.
+
+Následovník spravedlivého dosáhne Příbytku Světla; ale toho, kdo oklamal dobré a spravedlivé, čeká v budoucnu dlouhý život v utrpení, temnotě, žalu a zoufalství, ó vy zlého života! Vaše vlastní činy vás dovedou do této temné existence.
+
+Tomu, kdo je Tvým skutečným přítelem v duchu i v činu, ó Mazdo Ahuro, tomu dáš dokonalost integrity a nesmrtelnosti; tomu dáš trvalé spojení s Pravdou a Svatým Královstvím a tomu dáš posilující moc Dobré Mysli.
+
+To vše je jasné člověku moudrému, stejně jako tomu, kdo přemýšlí s péčí: Ten, kdo uplatňuje Pravdu veškerou mocí své síly, ten, kdo uplatňuje Pravdu naplno ve svém slově i činu – ten je věru Tvým nejcennějším pomocníkem, ó Mazdo Ahuro!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–5: Uprostřed zmatku a manipulací nepodléhej chaosu. Hledej informace, chtěj znát pravdu a používej kritické myšlení k tomu, abys poznal, jaký je tvůj skutečný stav a co má smysl dělat.
+
+Část 6–10: Skutečná hodnota člověka se pozná podle pracovitosti a odpovědnosti. Kdo staví svůj život na poctivé práci a péči o své okolí, buduje trvalé hodnoty, zatímco lenoch a parazit nepřináší nic dobrého.
+
+Část 11–13: Svoboda slova a volby znamená, že každý může říkat cokoliv. Tvé činy a motivace jsou však vždy vidět v jejich reálných dopadech – před následky vlastních rozhodnutí neutečeš.
+
+Část 14–18: Aktivně se vymez vůči lhářům a manipulátorům, kteří ničí vztahy, rodiny či komunity. Nedělej kompromisy s nečestností a nenech se svést těmi, kdo nabízejí zkratky na úkor druhých.
+
+Část 19–22: Největším přínosem pro společnost je být člověkem, který mluví pravdu, jedná poctivě a řeší konflikty s chladnou hlavou. Poctivé jednání v každodenním životě z tebe dělá spolehlivého opěrného bod pro ostatní.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 32</h3>
+                    <div class="prayer-text">
+Ti, kdo ve společenství a rodu následovali radu Lži, prosili o nejvyšší blaženost stejně jako my. Kéž jsme Tvými posly, kéž odrazíme zlo Tvých lživých odpůrcu!
+
+Pán Mazda inspirující Dobrou Myslí, Pán Ahura vládnoucí ve Své Božské Svrchovanosti, Pán Nejvyšší, ochránce Pravdy a Práva, takto odpověděl: „Pro váš rozkvět Jsme Se rozhodli přijmout vaši dobrou oddanost.“
+
+Ó vy, zlí, jste produkty Zlé Mysli, arogance a zvrácenosti; a takoví jsou i ti, kdo vás uctívají! Vaše zlé činy jsou již dlouho známy v sedmi regionech země.
+
+Neboť vy, lháři, matete lidskou mysl a přimějete lidi jednat nejhůře jak mohou, přimějete lidi mluvit jako milovníky Zla, odloučené od Dobré Mysli, daleko vzdálené od vůle Ahury Mazdy, odchylující se od cesty Pravdy a Práva.
+
+A tak lháři připravili lidstvo o život v štěstí a nesmrtelné blaženosti; neboť Zlý káže se Zlou Myslí a Zlým Slovem zlé činy lživé duši, slibuje svrchovanost, ale přináší jí zkázu.
+
+Tihle zločinci, dosahující neblahé proslulosti svou agresí, jistě obdrží to, co im náleží, před Tebou, ó Ahuro, Pane Nejlepšího Rozumu, jenž vždy dbáš o zásluhy člověka. Neboť vláda Práva bude ctěna, až Pravda zvítězí v Tvých říších, ó Mazdo!
+
+Ti hříšníci, ani jeden z nich, neznají konec, který je čeká. Žádný z nich neví o zničení zla v proudu žhavého kovu. Konečný konec je věru znám Jen Tobě, ó Nejblažejší Pane!
+
+A jedním z takových hříšníků byl Jima, syn Vivahvantův, který aby vyhověl lidem, schválil maso Krávy. Od takových mi dovol stát stranou v Tvém rozlišujícím soudu, ó Mazdo.
+
+Učitel zla ničí Rozum, ničí záměr života, rve blažené uskutečnění Dobré Mysli. S těmito hluboce cítěními slovy vycházejícími z mého ducha volám k Tobě, ó Mazdo, a k Duchu Pravdy!
+
+Ten, kdo nenávidí a vyhýbá se světlu Slunce, ten, kdo odmítá s úctou pohlížet na živé boží stvoření, ten, kdo vede dobré ke zlu, ten, kdo dělá z luk pustiny a z pastvin spoušť, ten, kdo obrací svou zbraň proti nevinnému – nepřítel mé víry, ničitel Tvých zásad je to, ó Pane!
+
+Drobnosti mé životní práce ničí zločinci, opěvovaní jako páni a paní, kteří zbavují lidi jejich právem nabytého dědictví, a ti, kdo zdržují dobré a pravdivé od říše Dobré Mysli, ó Mazdo.
+
+Těm, kdo odrazují lidi od nejlepšího jednání, těm, kdo ničí s bezcitným srdcem, těm, kdo staví zlé a ničemné nad Pravdu a Právo, těm, kdo touží po vládě Lži, Mazda prohlašuje: „Zlí jste všichni.“
+
+Tihle zločinci, kteří budou přebývat v příbytku Nejhorší Mysli, kteří touží po nepoctivě nabytém zisku a vří nespokojeností, kteří svévolně ničí život – daleko od poselství Tvého Proroka nespatří Vizi Pravdy.
+
+Zlý Grehma a kmenoví náčelníci již dlouho plánují podporovat Lež, obětovat Krávu a pustošit dobré živé stvoření, rozdělávajíce oheň nápoje na svou pomoc.
+
+Tvé poselství zničí dílo zločinců, již více nebudou nečestní Kaviové a Karpanové vládnout nad životy spravedlivých. Ale dobré doprovodí skrze Dokonalost a Nesmrtelnost do Říše Nejlepšího Duševního Bytí!
+
+Následovat toto osvícené učení je pro nás věru stavem dokonalosti, i když nám hrozí mstivé ublížení od zlých. Síla Tvého učení, ó Mazdo Ahuro, odvrátí toto škodění od Tvých věrných.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–5: Dej si pozor na falešné autority, které slibují rychlý zisk a moc skrze podvod a manipulaci. Jejich lži svádějí lidi od poctivého jednání a nakonec vedou k osobnímu i společenskému úpadku.
+
+Část 6–8: Krátkodobý úspěch nečestných lidí neznamená, že je jejich cesta správná. Dřív nebo později narazí na důsledky svých činů, zatímco skromný a spravedlivý přístup si udrží trvalou hodnotu.
+
+Část 9–11: Nebezpeční jsou ti, kteří ničí životní prostředí, škodí nevinným a berou druhým plody jejich poctivé práce. Chraň své hodnoty, přírodu i výsledky svého úsilí před bezcitnými lháři.
+
+Část 12–16: Zlozvyky, chamtivost a závislosti (jako omamné látky či touha po moci) zatemňují úsudek. Když ale stavíš na čistém svědomí, poctivosti a rozumu, získáš vnitřní sílu, která tě ochrání před jakýmkoliv vnějším tlakem a toxicitou.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 33</h3>
+                    <div class="prayer-text">
+V souladu s Prastarými Zákony tvořícími tuto existenci vykoná Ratu (Soudce) dokonalou spravedlnost pro všechny; pro dobré, kteří si zvolili Pravdu, pro zlé, kteří si zvolili Lež, i pro ty, v nichž se dobro a zlo mísí.
+
+Ten, kdo se staví proti Zlu svou myšlenkou, slovem nebo prací svých vlastních rukou, ten, kdo učí lidi k jejich dobrému, přináší důstojnou oběť víry Tvým Záměrům, ó Ahuro Mazdo!
+
+Ten, kdo je nejlepší ke spravedlivým, ať už je to šlechtic, rolník nebo závislý člověk, ten, kdo s horlivostí nechává vzkvétat dobré živé stvoření, ten přijde přebývat s Pravdou v říši Dobré Mysli.
+
+Jsem tím, kdo skrze oddanost a modlitbu udrží neposlušnost a Zlou Mysl daleko od Tebe, ó Mazdo, udrží drzé kacířství daleko od šlechticů, nedůvěru šířenou pomlouvači daleko od společenství a zhoubné ničení daleko od pastvin s dobytkem.
+
+Vzývám Tvou Sraošu (Inspiraci) jako největší ze všech pomocích při Dokonání, abych dosáhl Života Věčného v Tvém Království Dobré Mysli, abych dosáhl přímé cesty Pravdy, v níž přebýváš, ó Mazdo Ahuro!
+
+Já, který jsem se jako Tvůj vytrvalý kněz naučil přímé cestě Aši (Pravdy a Spravedlnosti) a chtěl bych se od Nejlepší Mysli naučit, jak nejlépe konat to, co má být vykonáno, proto Tě žádám, můj Pane: požehnej mi Svou Vizí a dopřej mi s Tebou rozmluvu!
+
+Přijď ke mně v Sobě Samém, ó Mazdo! Přijď nepřehlédnutelně, ó Ty Nejlepší, s Duchem Pravdy a Dobrou Myslí! Nechť je mé poselství slyšeno za hranicemi společenství věrných. Nechť jsou zářivé oběti uctivých modliteb zjevné všem.
+
+Dávej mi poznat Konečné Dobro, konečný cíl, abych jej mohl uskutečnit s pomocí Dobré Mysli. Přijmi, ó Mazdo, poctu Svého věrného uctívače, přijmi, ó Pravdo, mou píseň chvály pro Tebe; dopřejte nám, ó Duchové Nesmrtelného Blaha a Nesmrtelnosti, svá dvě požehnání.
+
+A s požehnáním těchto druhů, Duchů Dokonalosti a Nesmrtelnosti, nechť všichni pokročí k Tobě, ó Mazdo! Nechť všichni podporují věc Pravdy! Nechť všichni pokročí k nejvznešenějšímu Příbytku Moudrosti s myslí pro to nejlépe uzpůsobenou! Jistá je podpora těchto Dvou, jejichž duchové pracují společně.
+
+Všechna blaha života, která byla, která jsou a která budou, k nám přicházejí skrze Tvou Božskou Milost, ó Mazdo; skrze Tvou Svatou Moc nechť naše bytosti pokročí k vytoužené blaženosti, s pomocí Dobré Mysli, s pomocí Pravdy!
+
+Naslouchej mi, ó Nejdobrotivější Ahuro Mazdo! Ó vy Duchové Oddanosti a Pravdy, kteří žehnáte naší existenci! Ó vy Dobrá Mysli a Království Nebeské! Buďte k nám milostiví, když přijímáme svou odměnu!
+
+Povstaň pro mě, ó Ahuro! Skrze mou oddanost mi dej stálost záměru, skrze Svého Nejštědřejšího Ducha mě učyň čistým v dobrotě, skrze Ducha Spravedlnosti mi dopřej odvahu duchovní moci a skrze Dobrou Mysl mi dej důvěru lidí.
+
+S Tvou božskou milostí, ó Pane, rozšiř vizi mé mysli; učyň zjevnými Své věčné přívlastky; dávej poznat požehnání Svého Království Nebeského a radostnou odměnu Dobré Mysli; ó Svatá Armaity, inspiruj naše vědomí Konečnou Pravdou.
+
+Pánu Mazdovi jako oběť věnuje Zarathuštra díla svého života, i svoje samotné já, nejušlechtilejší esenci své Dobré Myšlenky. Pravdě zasvěcuje poslušnost jejím principům ve slově i činu a veškerou moc své duchovní autority.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–4: Spravedlnost platí bez ohledu na postavení. Zda jsi šéf nebo řadový pracovník, podstatné je to, co buduješ a jak se stavíš ke zlu a pomluvám ve svém okolí. Aktivně chránit společenství před toxicitou je tvoje zodpovědnost.
+
+Část 5–7: Kdo chce smysluplně vést ostatní, musí nejdříve sám neustále hledat pravdu a naslouchat správným myšlenkám. Teprve když sám žiješ to, co hlásáš, má tvoje slovo sílu oslovit i širší svět.
+
+Část 8–11: Každý pokrok a trvalý úspěch v životě vychází ze spolupráce, rozvahy a poctivého úsilí. Když usiluješ o dobro pro všechny, přirozeně vytváříš prostředí plné hojnosti a spokojenosti.
+
+Část 12–14: Skutečná autorita a důvěra lidí se nedá vynutit – získáš ji stálostí svých zásad, odvahou dělat správné věci a tím, že celou svou energii vkládáš do smysluplné a poctivé práce.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 34</h3>
+                    <div class="prayer-text">
+Činy, slova, uctívání, pro něž Jsi ustanovil Nesmrtelnost, Spravedlivou existenci a Království Dokonalosti – všechny tyto činy, slova a uctívání věnuji především Tobě, ó Pane Mazdo!
+
+Tyto činy, inspirované Dobrou Myslí, vycházejí z dobrého ducha ctnostného člověka, jehož duše jde po cestě Pravdy a přibližuje se k Tvé Přítomnosti, ó Mazdo, zpívajíc hymny k Tvé chvále.
+
+Tobě a Pravdě předkládáme své oběti uctivé pocty. V Tvém Království nechť všichni živí dosáhnou svého určení dokonalosti skrze Dobrou Mysl. Neboť věru, pokrok k Tvé vznešené přítomnosti je mezi správně smýšlejícími navždy zajištěn, ó Mazdo!
+
+Tvůj posvátný oheň, ó Ahuro, mocný skrze Pravdu, nejrychlejší a nejistší – nechť je jeho nápomocná záře přinašečem radosti pro dobré; ale pro zákeřné zlé nechť jeho moc odhalí jejich zlo!
+
+Jaká je Tvá moc? Jaké je Tvé panství, ó Mazdo? Jak mohou činy člověka ospravedlnit Tvou ochranu, ó Mazdo? Věru takto: skrze Spravedlnost a skrze Dobrotivou Mysl a chráněním Tvých chudých. Budeme hlásat Tvou vznešenost všem – i mocím zla a zlým ničitelům mezi lidmi.
+
+Jelikož Jsi věru takový, ó Mazdo, samotná Bytost Pravdy a Dobré Mysli, dej mi znamení během této mé existence, abych se mohl přibližovat s důvěřivou radostí, v úctě a se zpěvem o Tvé slávě.
+
+Kde jsou ti, ó Mazdo, s opravdovým osvícením Dobré Mysli, kteří by i v časech strastí šířili světlo skrze Tvá opatrovaná učení? Nikoho jiného než Tebe neznám; chraň nás tedy skrze Pravdu.
+
+Neboť evilní nepřátelé svými nepřátelskými činy rozšířili strach; bídu a zkázu přinesli na mnohé. Nedbajíce Tvých přikázání, mocní utlačují slabé, ó Mazdo! Nemyslí, bohužel, na Pravdu a Právo, od Dobré Mysli zůstávají vždy daleko.
+
+Ti, kdo odmítají štědrého Ducha Oddanosti, ač vědí, jak vznéstný je Tvým zasvěceným, jsou zlí pro svou nevědomost a přehlížení Dobré Mysli; od nich se Pravda odvrací, stejně jako od nás utíkají dravé šelmy.
+
+Člověk porozumění bude volat po činech Dobré Mysli, plodném výsledku věrného života; ten, kdo zná horlivost Armaity, je tvořivým následovníkem Pravdy a Práva, které jsou věru mocnými vlivy Tvého Království Nebeského, ó Mazdo.
+
+Tvá dvojčata Duchů Dokonalosti a Nesmrtelnosti udržují naši touhu. Horlivá Armaity s Pravdou zajistí trvalost Tvého Království Dobré Mysli. Těmito božskými silami, ó Mazdo, žehnáš odpůrcům Svých nepřátel.
+
+Jaká jsou Tvá přikázání a co si přeješ, ó Mazdo? Co z vzývání, co z uctívání? Promluv, můj Pane, abych Tě slyšel! Abych věděl, co nám dopřeje Tvé požehnané odměny. Nauč mě skrze Dobrou Mysl ušlechtilé cestě Pravdy a Práva.
+
+Je to Cesta Dobré Mysli, kterou Jsi mi zjevil, ó Ahuro! Kde ti, kdo konají dobro v souladu s učením Duchovních Průvodců a jednají v harmonii pouze s Pravdou, pokročí k přidělené odměně, jejímž Jsi dárcem, ó Mazdo!
+
+Tuto Svou vzácnou odměnu, ó Mazdo, dáváš cestou Dobré Mysli, dáváš ji síle tělesného života toho, kdo pracuje pro Tvé Stvoření a pečuje o ně, kdo podporuje Tvůj dobročinný plán mocí svého porozumění, veden Tvým Duchem Pravdy.
+
+Dávej mi poznat nejlepší učení a činy, podnícené Dobrou Myslí a inspirované Pravdou, když vyjadřuji svou touhu v písních úcty k Tobě. Svou Svrchovanou Autoritou obnov tuto existenci skrze Svou laskavou Vůli, ó Ahuro!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–5: Uplatňovat vliv a moc neznamená utlačovat slabší. Skutečné hodnoty a charakternost se poznají podle toho, jak pomáháš zranitelným a zda tvé slovo i práce slouží obecnému dobrému.
+
+Část 6–9: V těžkých časech se pozná, kdo staví na pevných zásadách a kdo jedná z pouhého strachu či chamtivosti. Nenech se zastrašit těmi, kdo zneužívají moc – pravdivost a vnitřní integrita jsou v krizi tvým nejlepším štítem.
+
+Část 10–12: Pasivní víra nestačí; klíčem je aktivní tvořivost a neustálé vzdělávání. Ptej se, uč se a převáděj své pozitivní myšlenky do konkrétních každodenních činů.
+
+Část 13–15: Největší odměnou za poctivou práci je zdravý, plnohodnotný život a pocit, že tvé úsilí reálně přispívá k obnově a zlepšení světa kolem tebe.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 43</h3>
+                    <div class="prayer-text">
+Štěstí nechť je údělem toho, kdo pracuje pro štěstí druhých. Nechť mu Pán dopřeje zdraví a vytrvalost. Pro úsilí udržovat Pravdu žádám právě tyto dary od Tebe! Kéž mě skrze Armaity, Ducha Správného Smýšlení, požehnáš dokonalostí života vedeného Dobrou Myslí!
+
+A kéž máme to Nejlepší, co Pán dopřává; jak usilujeme o osvícený cíl, kéž ho dosáhneme! Skrze Tvého Nejštědřejšího Ducha, ó Mazdo, nás inspiruj Pravdou, zjevenou skrze Dobrou Mysl, a požehnej nám dobrými věcmi po všechny dny dlouhého života!
+
+Ten, kdo učí druhé spravedlivé cestě pravdy a štěstí v hmotném světě i v duchovním – cesty vedoucí k Tvému příbytku, ó Ahuro – ten dosahuje konce lepší než dobrého. Velkorysý a osvícený pomocník, věrný hoden Tebe, je to, ó Mazdo!
+
+Věru Tě považuji za Svatého a Mocného Dobrodince, ó Mazdo. Neboť dopřáváš spravedlivým i zlým jejich odplatu; ze planoucí nádhery Tvého Ohně, mocného skrze Ašu (Pravdu), ke mně přichází moc Dobré Mysli, ó Mazdo.
+
+Věru jsem věřil, že Jsi, ó Mazdo Ahuro, Nejvyšší Dobrotivou Prozřetelností, neboť jsem Tě spatřil jako prastarý pramen stvoření. Neboť Svou dokonalou moudrostí poskytneš spravedlivou odplatu za všechny činy – dobro dobrým, zlo zlým – při posledním obratu stvoření.
+
+Tehdy naštěstí přijdeš se Svým Štědrým Duchem, ó Mazdo! S Tvou Svrchovanou Mocí a s Tvou Dobrou Myslí, tou Dobrou Myslí, která přináší světu rozkvět. Správné zasvěcení naučí Věčným Zákonům Tvé Moudrosti, Moudrosti, kterou nikdo nemůže oklamat.
+
+Věru jsem věřil, že Jsi, ó Mazdo, Nejvyšší Dobrotivou Prozřetelností, když Duch Dobré Mysli přišel a zeptal se mě: Kdo jsi? Čí jsi? Jak hodláš osvítit lidi a odpovědět na jejich otázky?
+
+Odpověděl jsem: „Předně jsem Zarathuštra, opravdový odpůrce zločince, ale mocný přítel dobrých jsem. Dokud mohu zpívat své písně chvály pro Tebe, ó Mazdo, dotud budu usilovat osvěcovat a probouzet všechny k uskutečnění Tvé Věčné Vlády.“
+
+Věru jsem věřil, že Jsi, ó Mazdo Ahuro, Nejvyšší Dobrotivou Prozřetelností, když ke mně přišla Dobrá Mysl a zeptala se: „Co by sis zvolil?“ Před Tvým Ohněm v úctě jsem odpověděl: „Pokud je to v mé moci, budu opatrovat dar Spravedlnosti.“
+
+A dopřej mi Spravedlnost, neboť ji věru od Tebe vzývám! Sousedsky toužím procházet životem s Armaity, Duchem Správného Smýšlení. Nauč nás, jak se Tě ptát, neboť Tvé odpovědi nás těší – odpovědi, které dávají sílu Vůdcům v jejich modlitebních přáních.
+
+Věru jsem věřil, že Jsi, ó Mazdo Ahuro, Nejvyšší Dobrotivou Prozřetelností, když ke mně přišla Dobrá Mysl s osvícením, když jsem poprvé přijal Tvá slova a stal se jimi moudrým; a ačkoliv úkol může být těžký a překážky mi mohou zkřížit cestu, budu hlásat Tvé poselství, které prohlašuješ za nejlepší.
+
+A když Jsi mě poučil v Spravedlnosti, Tvůj příkaz jít a hlásat Tvé zjevení nezůstal neposlechnut; i před vznešeným osvícením přicházejícím s Tvým poslem Sraošou, přinášejícím nám určení našich odpovídajících odměn.
+
+Věru jsem věřil, že Jsi, ó Mazdo Ahuro, Nejvyšší Dobrotivou Prozřetelností, když ke mně přišla Dobrá Mysl zjišťující cíl mé touhy: Dopřej mi to, co ještě nikdo od Tebe nezískal – cestu k dlouhému životu blažené existence pro Dobré Stvoření podléhající Tvé Vládě.
+
+Jako by moudrý a mocný Pán dal příteli, tak mi dej Svou moudrost přinášející blaženost, ó Mazdo! Obdařen Tvou Autoritou, s Tvým Duchem Spravedlnosti stojím se všemi následovníky Tvého učení, abych hlásal poselství Tvého posvátného vyznání.
+
+Věru jsem věřil, že Jsi, ó Mazdo Ahuro, Nejvyšší Dobrotivou Prozřetelností, když ke mně přišla Dobrá Mysl a s jistotou mi řekla, že přemýšlivá a spokojená mysl je tím nejlepším majetkem. Nechť vůdce nedělá kompromisy se zločinci ani se jim nenadbíhá, neboť ti berou spravedlivé jako nepřítele.
+
+Takto se modlí, ó Ahuro Mazdo, Zarathuštra a ti, kdo se rozhodli následovat Tvého Nejdobrotivějšího Ducha; nechť se Spravedlnost ztělesní ve věrných s trvalou sílou! V nádheře Tvých sluncem zalitých říší nechť přebývá Armaity, Duch Správného Smýšlení! Nechť dopřeje odplatu spravedlivým v souladu s jejich činy, skrze Dobrou Mysl.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3: Skutečné osobní štěstí přichází tehdy, když pomáháš ke štěstí druhým. Předávat vědomosti, pomáhat okolí a razit cestu poctivosti má hlubší smysl než pouhá honba za vlastním prospěchem.
+
+Část 4–6: Každé jednání nese své přirozené následky – spravedlnost neustále působí v pozadí. Když děláš dobré věci, buduješ stabilní prostředí a vnitřní klid; když podvádíš, škodíš v konečném důsledku nejvíce sám sobě.
+
+Část 7–10: Jasně si definuj, kým jsi a za čím si stojíš. Když tě život postaví před volbu, drž se zásad spravedlnosti a nenech se svést okolím k nečestným ústupkům.
+
+Část 11–14: Dělání správných věcí často vyžaduje odvahu a překonávání překážek. Když máš jasnou vizi a tvé úmysly jsou čisté, získáš vnitřní vytrvalost i přirozenou autoritu u ostatních.
+
+Část 15–16: Vyrovnaná a přemýšlivá mysl je největší bohatství, které ti nikdo nemůže vzít. Jako vedoucí či autorita nikdy nenadbíhej lidem s nečestnými úmysly – kompromisy s toxicitou ničí integritu celého společenství.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 44</h3>
+                    <div class="prayer-text">
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jak Tě mám v písni chvály, jako jsi Ty, ó Mazdo, správně uctívat? Kéž ten, jako jsi Ty, poučí přítele, jako jsem já! A kéž k nám přátelská pomoc Aši, Pravdy, přjde skrze Dobrou Mysl!
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; co je pramenem Té Nejlepší Existence? Jak ten, kdo ji hledá, obdrží požehnanou odměnu? Určitě je takový svatý muž skrze Spravedlnost uzdravovatelem bytí, dobrodincem pro všechny a opravdovým přítelem, ó Mazdo?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; kdo byl na počátku otcem a stvořitelem Aši, Pravdy? Kdo určil cesty slunce a hvězd? Kdo jiný než Ty tak zařídil, že měsíc dorůstá a ubývá? To vše, ó Mazdo, a ještě mnohem více bych rád věděl.
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; kdo tak vyvážil zemi a nebesa, aby zůstaly odděleny? Kdo stvořil vody a rostliny? Kdo zapřáhl rychlost do větrů a pohyb do mraků? Kdo je Stvořitelem Dobré Mysli, ó Mazdo?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jaký velký mistr stvořil světlo a temnotu? Jaký umělec vytvořil jev spánku a bdělé činnosti? Kdo učinil úsvit, poledne a noc, které volají osvícené k jejich povinnostem?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; zda to, co nyní oznamuji, je věru pravda: podporuje Armaity skrze dobrotu našich činů věc Pravdy? Spočívá Království Nebeské na základech Dobré Mysli? Pro koho Jsi stvořil tento bohatě obdařený svět?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; kdo ustanovil požehnanou Armaity, ducha Dobrotivosti, ve vznešeném panství? Kdo s předvídavostí učinil syna úctyhodným k otci? Takto Tě toužím pochopit, ó Mazdo, skrze Dobrotivého Ducha, Dárce všeho!
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jaké je Tvé poselství pro mé osvícení, ó Mazdo, v principech, které hledám u Dobré Mysli, abych skrze Pravdu pochopil smysl existence? Jak má má duše vzrůst k stále většímu dosažení Dobra?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jak přivedu k dokonalosti vhled do Víry, které Jsi mě Ty, Pane Svrchované Moudrosti, naučil Svou Autoritou? Kéž my, Tví následovníci, přebýváme s Pravdou a Dobrou Myslí v Tvém příbytku!
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; o Víře, která je nejlepší pro vše, co jest, která založena na Pravdě má dát rozkvět veškeré existenci, která ustanovuje Spravedlivé a Poctivé činy inspirované Oddaností, a která má za svou inteligentní touhu uskutečnění Tebe, ó Mazdo!
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; k těm, kterým bude Tvá Víra oznámena, jak k nim přijde Armaity, Duch Správného Smýšlení? Já, Tvůj prorok, jsem byl od počátku Určen Tebou pro tento úkol; všichni ostatní, jak vidím, mají odcizeného ducha.
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; kdo mezi těmi, s nimiž rozmlouvám, je spravedlivý a kdo lhář? U kterého z obou je zlomyslný Duch Ne-pravdy? Nebo je on sám tím Nespravedlivým, kdo se staví proti Tvým požehnáním? Jak to, že není považován za škodlivého Zlého?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jak zapudíme Ducha Ne-pravdy ze svého středu? Nechť je s nevěrnými a neposlušnými, kteří neusilují být průvodci Pravdy a nedbají na rady Dobré Mysli.
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jak vydám Zlo do rukou Spravedlnosti? Jak ho učiním neúčinným skrze posvátná slova Tvého Učení? Jak zmařím záměry následovníků Zla, ó Mazdo, aby dospěli ke své slepé zkáze?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; vládneš-li skrze Pravdu a hodláš-li mě chránit, až se dvě vojska v nepřátelství střetnou, kterým z obou bude dopřáno vítězství pro Principy, které si přeješ udržet?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; kdo bude vítězný a skrze Tvé Principy ochrání živé? Ujisti mě vizí, koho si přeješ za soudce, který uzdraví svět; pak nechť k němu přijde Sraoša, Duch Poslušnosti, s Dobrou Myslí, ó Mazdo, a ke všem těm, kterým si přeješ, ať je to kdokoliv!
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jak dosáhnu své touhy dospět k Tobě? Jak dosáhnu Tvé Dokonalosti, ó Mazdo, a učiním svůj hlas účinným? Kéž jsou všichni skrze tyto božské písně, přijímající své vodítko z Pravdy, dovedeni ke dvěma darům: Blahu a Nesmrtelnosti!
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; jak věru získám konečnou odměnu skrze Pravdu a Právo? Obdržím deset kobylet s hřebcem a velblouda? Jak přinesu všemu lidstvu dary Dokonalosti a Nesmrtelnosti, jak Jsi oznámil?
+
+Na to se Tě ptám, řekni mi pravdu, ó Ahuro; ten, kdo nedá náležitou odměnu tomu, kdo si ji zaslouží – i pravdomluvnému muži, který plní své slovo a práci – jaký trest by měl zaplatit nejprve zde? Neboť dobře vím, co má obdržet nakonec potom.
+
+Byli Dévové někdy dobrými vládci, ó Mazdo? Věru se ptám těch, kdo se s nimi přátelí. S jejich pomocí Karpan a Usig vydávají svět násilí, skrze ně Kaviové sílí nájezdy a pleněním, nedbajíce o to, že pastviny světa by vzkvétaly skrze řád a pokrok Pravdy.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–5 (Otázky po smyslu a řádu): Pravidelně si pokládej otázky o fungování světa a věcí kolem sebe. Zvědavost a úžas nad přirozeným řádem přírody tě vedou k pokoře, lepšímu chápání souvislostí a kritickému myšlení.
+
+Část 6–10 (Hledání správné cesty): Vnitřní klid a kvalitní život nezískáš náhodou, ale tím, že se aktivně ptáš na správné hodnoty. Pravda, rozum a ohleduplnost k ostatním jsou nejlepšími pilíři pro tvé každodenní rozhodování.
+
+Část 11–16 (Boj s nečestností): Nauč se v životě rozpoznat lidi, kteří šíří chaos, klam a toxicitu. Místo pasivity aktivně podporuj ty, kteří řeší konflikty s chladnou hlavou a chrání poctivé lidi před agresi.
+
+Část 17–20 (Spravedlivá odměna a spravedlnost): Každá poctivá práce si zaslouží spravedlivé ohodnocení. Kdo neplatí dohodnutou cenu, neplní sliby nebo tyje z násilí a plenění druhých, vytváří nefunkční prostředí, které se nakonec obrátí proti němu samému.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 45</h3>
+                    <div class="prayer-text">
+Naslouchejte mi, ó vy, kdo přicházíte zblízka i zdaleka! Poslouchejte me, jak nyní promlouvám, přemýšlejte o těchto učeních s péčí a jasnou myslí. Nikdy již Falešný Učitel nezničí existenci podruhé, neboť jeho jazyk umlkl, jeho vyznání stojí odhaleno.
+
+Povím vám nyní o Dvou Duších na počátku Stvoření. Posvátnější z obou takto promlouvá k Zlému: „Ani naše myšlenky, ani naše učení, ani záměry, ani volby, ani naši slova, ani naše činy, ani naše svědomí, ani naše duše se nikdy neshodnou.“
+
+Povím vám nyní o Prvním Principu Života, který mi Ahura Mazda, Vševědoucí, oznámil. Věru ti z vás, kdo nenaplní požadavky posvátného poselství, posvátná slova, jak jim rozumím a jak je prohlašuji, pro ty bude koncem existence bída.
+
+Povím vám nyní o tom, co je v tomto životě nejlepší: to jest jednat v souladu s Duchem Pravdy, posvátnou Ašou, a tím uskutečňovat Mazdu, který jej stvořil – Mazdu, otce Vohu-Mana, stále činné Dobré Mysli, Mazdu, otce Armaity, dobrotivosti a horlivosti; všeukazujícího Pána, kterého nikdo nemůže oklamat.
+
+Povím vám nyní, co mi Nejświętsější prohlásil jako slovo, které je pro smrtelníky nejlepší ke slyšení: „Těm, kdo Mi budou věnovat pozornost s oddaností, přijdu s požehnáním Dokonalosti a Nesmrtelnosti za činy jejich Dobrého Ducha.“ Tak řekl Ahura Mazda.
+
+Takto oznamuji Největšího ze Všech, zpívám Jeho chválu skrze Jeho Pravdu, dobročinnou pro všechny. Nechť Mazda Ahura naslouchá těmto slovům se Svým Svatým Duchem, neboť Dobrá Mysl mě poučila, abych Ho uskutečnil. Svou Moudrostí nechť mě vede k konečnému Cíli.
+
+Ti, kdo žijí, ti, kdo byli, i ti, kdo ještě mají být, dosáhnou jedné z odměn, které On určuje. V nesmrtelnosti bude duše spravedlivého navždy v nádheře, ale v bídě bude duše ničemného. Tyto zákony Ahura Mazda určil skrze Svou Svrchovanou Autoritu.
+
+Svými písněmi chvály a úcty hledám přijetí u svého Pána! Neboť nyní Ho věru vidím svýma očima jako Pána Dobrého Ducha, Pána Dobrého Slova a Činu. Uskutečnil jsem Ho skrze Pravdu, Jeho, jenž je Mazda Ahura! Věru Mu vzdám poctu v Domě Písní.
+
+Jeho se svou dobrou myslí snažíme naklonit, Jeho, který nám dal rozlišovací schopnost, skrze niž přijímáme blaho i strast. Kéž Ahura Mazda skrze Svou Svrchovanou Autoritu dá rozkvět našim rolníkům, našim dělníkům a našim stádům. A nechť Dobrá Mysl ustanoví vládu posvátného zákona Pravdy.
+
+Jeho těmito našimi písněmi oddanosti budeme velebit, Jeho, proslulého navždy jako Mazda Ahura, Moudrý Stvořitel! Neboť věru skrze Svého Ducha Spravedlnosti a Dobrou Mysl určil, že Dokonalost a Nesmrtelnost budou v Jeho Panství a životnost navždy v Jeho Domě!
+
+Kdo se vyhýbá zlému lháři a smrtelníkům, kteří popírají Pána, kdo Ho ctí, Nejvyššího, skrze Svatou Víru Svého určeného spasitele – k tomu, ó Mazdo, budeš přítelem, bratrem, nebo dokonce otcem!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3: Dobro a zlo jsou neslučitelné principy – nelze dělat nečestné věci a čekat poctivé výsledky. Používej jasný rozum a odhaluj manipulátory dřív, než napáchají škody.
+
+Část 4–6: Nejlepší životní cestou je propojení pravdy, rozumu a praktické dobroty. Když nasloucháš konstruktivním myšlenkám a uvádíš je do praxe, buduješ vnitřní kvalitu, která odolá zkouškám času.
+
+Část 7–8: Každé tvé rozhodnutí směřuje k dlouhodobým následkům. Žít v souladu se svým svědomím přináší vnitřní svobodu a spokojenost, zatímco lež a podvod tě dříve či později dovedou k osobnímu úpadku.
+
+Část 9–11: Skutečné hodnoty se projevují v péči o poctivou práci, pracovníky a společenství kolem nás. Když odmítneš toxické lidi a držíš se spravedlivých zásad, získáš v životě pevné zázemí a přirozenou oporu.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 46</h3>
+                    <div class="prayer-text">
+Do jaké země se mám obrátit a kam se obraceje mám jít? Neboť moji příbuzní i moji rovní mě opustili. Lidé ani jejich zlí vládci mi nepřejí. Jak Tě mám uspokojit, ó Ahuro Mazdo?
+
+Vím, Mazdo, proč jsem muž, jemuž se nesplnilo přání: mám s sebou jen málokteré a ještě skrovnější jsou mé prostředky pro jejich podporu. Hle, můj Pane, obracím svou apelaci k Tobě; dopřej mi Svou laskavou pomoc, jakou by přítel dal příteli. Dopřej mi skrze Pravdu získání bohatství Dobré Mysli.
+
+Kdy, ó Mazdo, svitne den pro ustanovení věci Pravdy? Kdy moudří Duchovní Průvodci účinně rozšíří Tvá vznešená učení? Ke čjí pomoci přjde moudrost Dobré Mysli? Pro mě věru, který si Tebe zvolil za svého učitele, ó Ahuro Mazdo!
+
+Zločinec zadržuje rozkvět následovníků Pravdy, neblahé pověsti je, nebezpečný ve svých činech! Kdo ho vyhnal z království a odstranil z životů lidí, půjde vpřed a připraví cestu pro ideální život.
+
+Ten, kdo je v postavení moci skrze božské ustanovení nebo lidskou dohodu a je následovníkem Pravdy, má při setkání s cizincem, rozpoznaným jako následovník Lži, zjevit mu vznešený život poctivosti. Chraň ho před zkázou, ó Mazdo Ahuro!
+
+Ale ten, kdo nepomůže přeměnit Zlo, bude s těmi v příbytku Lži; neboť ten, kdo hledí na zlo s tolerancí, není ničím jiným než zlem. A věru spravedlivý je ten, kdo podporuje spravedlivé. To jsou Tvé Zákony od úsvitu stvoření, ó Ahuro.
+
+Když mě zlo označí za cíl svého úderu, kdo bude ochráncem jednoho jako já, kdo jiný než Tvůj Posvátný Oheň a Tvá Myšlenka? Věru skrze jejich mocnou sílu Pravda a Spravedlnost dospějí ke svému. Ó Ahuro, přiveď to k plnému uskutečnění!
+
+Pokud by byl někdo odhodlán přinést škodu tomu, co je naše, nechť k nám forma takového pustošení nedorazí! Ale zpět na něho nechť se škoda odrazí. Zlo jeho činů ho udrží daleko od Dobrého Života, ale ne od zlého, ó Mazdo.
+
+Kde je věrný muž, který mě dbá jako prvního, jenž učí, že věru Ty Jsi Nejvyšší k vzývání, ve velmi skutku Štědrá Prozřetelnost, Svatý Pán? Kdo uslyší skrze Dobrou Mysl to, co Pravda dala poznat mně – Pravdu zjevenou Stvořitelem Nejvyšším!
+
+Kdokoliv, muž nebo žena, dělá to, co Ty, ó Mazdo Ahuro, víš, že je nejlepší v Životě; kdokoliv dělá právo pro samotné Právo, kdokoliv v autoritě vládne s pomocí Dobré Mysli – ty všechny přivedu k připojení se k písním Tvé Chvály; spolu s nimi překročím Měst Soudců (Činvat).
+
+Karpanové a Kaviové tyranizovali lidstvo, jejich zlé činy ničí Život. Věru svědomí takového člověka bude trýznit jeho duši; a tak, až přijdou k Mostu Soudců, jejich příbytkem po nekonečné věky bude Dům Lži.
+
+Když mezi příbuznými a potomky proslulého Turanana Fryany povstane Právo, když skrze duchovní horlivost Armaity podpoří blaho země, tehdy jim Ahura Mazda přinese osvícení Dobré Mysli a ukáže jim cestu Obnovy.
+
+Ten, kdo potěší Spitamu Zarathuštru svými vznešenými činy, ten je věru sám hoden hlásat doktríny Tvé Víry, ó Ahuro! Jeho Ahura Mazda požehná Dobrým Životem, bude vzkvétat skrze Dobrou Mysl, věru je věrným přítelem Tvým, ó Pravdo!
+
+„Ó Zarathuštro, který muž je tvým věrným přítelem pro dokonání Velké Věci? Kdo si přeje mít tvé poselství oznámeno?“ Věru je to král Vištáspa! Ty, které shromáždíš ve Svém Příbytku, ó Mazdo Ahuro, ty oslovím slovy Dobré Mysli.
+
+Ó vy Spitamové, potomci Haečataspovi, prohlašuji vám: s moudrostí dobře rozlišujte mezi Právem a Zlem. Nechť vaše činy posouvají Právo v souladu s prastarými zákony Ahury Mazdy.
+
+Ó Frašaoštro z rodu Hvogva, jdi s těmi věrnými, které jsme oba zvolili pro osvícení světa, kde Oddanost a Horlivost budou spojeny s Pravdou, kde Dobrá Mysl drží moc Svrchovanosti, tam, kde přebývá nádhera Pána Mazdy.
+
+Oznámím ve verších spíše než v próze, ó Džamáspo Hvogvo: ten, kdo předkládá modlitby a činy v dokonalé poslušnosti, obdrží od Mazdy Ahury a Ducha Pravdy ochranu, až budou spravedliví odděleni od nespravedlivých.
+
+Ten, kdo je se mnou v naší nejvyšší touze, tomu skrze Dobrou Mysl dopřeji to nejlepší v mé moci; ale trýzeň bude na tom, kdo je pro nás trýznivým utlačovatelem. Ó Pane Mazdo a ó Duchu Pravdy, usilovat takto o naplnění Vaší vůle je rozhodnutím mého rozumu. A takto chci.
+
+Ten, kdo následaje Pravdu bude pracovat pro mě, Zarathuštru, aby nás přivedl k Velké Obnově v souladu s Tvým záměrem – pro toho bude veškerá čest a spokojenost v tomto světě a odpovídající stav v životě budoucím. Jak Jsi mi věru zjevil, ó Vševědoucí Mazdo!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3 (Překonávání samotya nezdaru): Každý se občas ocitne v situaci, kdy se cítí sám, bez podpory a prostředků. Důležité je neztrácet vizi, spoléhat na čisté svědomí a dál pracovat na tom, co má smysl.
+
+Část 4–6 (Postoj ke zlu a odpovědnost): Tolerovat nespravedlnost nebo se tvářit, že se nás netýká, znamená napomáhat jí. Pokud máš vliv nebo moc, tvou povinností je ukazovat správnou cestu a aktivně chránit poctivé lidi před útlakem.
+
+Část 7–10 (Integrita a rovnost): Na pohlaví ani původu nezáleží – klíčové je dělat správné věci pro správné věci samotné. Člověk s čistým štítem a rozumným přístupem se nemusí obávat žádného konečného zúčtování.
+
+Část 11–13 (Následky tyranie a síla spojenců): Tyranie a chamtivost přinášejí vnitřní rozklad a výčitky svědomí. Skutečná síla spočívá v nacházení spojenců a budování komunity založené na vzájemné důvěře a poctivé práci.
+
+Část 14–19 (Společné úsilí a vize): Změnit věci k lepšímu vyžaduje spojení moudrosti, dobrých úmyslů a odvahy jednat. Když poctivě pracuješ na obnově svého prostředí, získáš vnitřní klid i uznání, které přetrvá.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 47</h3>
+                    <div class="prayer-text">
+Pro Nejlepší Mysl a pro Nejlepší slovo a čin podnícený Pravdou, od Štědrého Ducha Pána Mazdy – nechť nám ve Svrchované Autoritě a skrze ducha Správného Smýšlení dopřeje Svá dvě velká požehnání: zdokonalující integritu zde a Nesmrtelnost na věčnosti.
+
+Nejlepší dílo tohoto Štědrého Ducha naplňuje ten, kdo obdařen Dobrou Myslí mluví slova moudrosti a pracuje svýma rukama, veden činnou Dobrotivostí, inspirován vhledem, že Ty, ó Mazdo, Jsi Otcem Pravdy.
+
+Ty Jsi Svatý Pán tohoto Požehnaného Ducha, ó Mazdo! Neboť po rozmluvě s Dobrou Myslí Jsi stvořil tento svět pro naše potěšení a poskytl ochranu v dobrotivosti Armaity, abychom získali mír.
+
+Tímto Štědrým Duchem, ó Mazdo, se evilní lháři cítí sužováni, ale spravedliví nikoliv. Ať už je majetek člověka velký nebo malý, nechť vždy touží po spravedlnosti a zříká se ničemných.
+
+Tímto Tvým Štědrým Duchem, ó Mazdo, Jsi přidělil vše nejlepší dobrým; ale daleko od Tvé Milosti bude mít svůj podíl zlý – Lhář, přebývající na základě vlastních činů v domově Zlé Mysli.
+
+Tímto Tvým Štědrým Duchem, ó Mazdo, a skrze Tvůj Svatý Oheň rozdělením přisoudíš dobro a zlo dvěma soupeřícím stranám, přičemž Pravda a Správně Smýšlející Spravedlnost stojí po Tvém boku. Věru, to přiměje mnohé, aby slyšeli Tvé Poselství.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3: Skutečná hodnota se tvoří spojením moudrých myšlenek, poctivých slov a poctivé práce vlastních rukou. Když vytváříš užitečné věci a jednáš s dobrou vůlí, přinášíš klid sobě i svému okolí.
+
+Část 4–6: Charakternost nezávisí na tom, kolik toho vlastníš. I s málem můžeš žít s čistým štítem; lež a podvod tě dříve či později dovedou k vnitřnímu rozkladu, zatímco poctivé úsilí se v reálném světě vždy obhájí.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 48</h3>
+                    <div class="prayer-text">
+Až v čase zúčtování lidé s pomocí Pravdy zvítězí nad Lží; až podvody a lži falešných bohů a podlých lidí, dlouho odsuzované, zůstanou odhaleny, tehdy, v čase spásy, nastane plné uctění Tvé Slávy!
+
+Řekni mi, ó Ahuro, neboť Ty Jsi vševědoucí: přemohou spravedliví zlého nepřítele ještě předtím, než nás postihne velká krize? Neboť to by byla věru požehnaná událost pro obnovu světa.
+
+Ó Dobrotivý, Vševědoucí Mazdo! Člověku rozumějícímu Tvému Poselství dopřáváš hluboký poklad Svého Učení, to, co Jsi ustanovil skrze Pravdu! S inteligencí inspirovanou Dobrou Myslí se člověk věru stává hodným Tebe, ó Mazdo!
+
+Ti, jejichž mysl směřuje k povznášejícím myšlenkám, i ti druzí, jejichž mysl se obrácí k tomu, co je nízké – jejich slova a činy budou odrážet jejich myšlenky; neboť jejich volby budou následovat jejich pocity. Jejich konce budou rozdílné, jak prohlašuje Tvá Moudrost.
+
+Nechť nám vládnou ti, kdo vědí, jak vládnout dobře, a ne zlí vládci! Nechť nám vládnou s moudrostí – vládnou s dovedností, ó Oddanosti! Přiveď lidstvo k dokonalosti a dej posvěcené požehnání pro jeho budoucí život! Nechť je člověk aktivní, s horlivostí pečující o svou zemi a stvoření, aby vzkvétala.
+
+Neboť Armaity, svatý duch Správného Smýšlení, s mocí odhodlané myšlenky nás požehná mírem, blahobytem a sílou ducha. Pro ni dala Ahura Mazda růst rostlinám skrze přírodní zákon Pravdy při vzniku Života.
+
+Ó vy, kdo chcete být vázáni Dobrou Myslí a usilujete o šíření Pravdy, ó vy, kdo toužíte udržet Svatou Věc: potlačte veškerý hněv a násilí, zanechte veškeré zlé vůle a svárů! Takoví dobrotiví lidé budou v Tvém Příbytku, ó Ahuro.
+
+Bude radost Tvého dobrého království Nebeského požehnaným stavem určeným pro mě, ó Ahuro? Jaký projev Tvé Pravdy bude vítán pobožnými a inspiruje je k usilování o velké činy Dobrého Ducha?
+
+Kdy poznám, ó Mazdo, jak vládneš s pravdou a spravedlností nad těmi, kdo mě utlačují a uvrhují do strachu a pochybností? Nechť je mi dáno poznat záměr Dobré Myšlenky; nemá snad budoucí spasitel vědět, jaký bude požehnaný výsledek?
+
+Kdy dobrí lidé dospějí k pochopení a šíření Tvé Moudrosti, ó Mazdo? Kdy odstraní odporné zlo opilství? Zlo, kterým evilní obětovači a zlí páni zemí pustoší svět!
+
+Kdy, ó Mazdo, přijde Oddanost s Pravdou do našich zemí? Kdy k nám skrze dobrou vládu přijde šťastný život v pokojných pastvinách? Kdo nám přinese mír od krutých a zlých lidí? Ke komu přijde moudrost Dobré Mysli?
+
+Takoví jsou spasitelé země, kteří inspirováni Dobrou Myslí způsobují nápravu činy v souladu se zákony Pravdy a spravedlnosti. Ti jsou věru Určeni Tebou, abys zamezil násilí, ó Mazdo!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–4 (Síla myšlenek a odhalení lži): To, jak myslíš, přímo určuje, jak jednáš a jaké výsledky v životě sklidíš. Lež a klam se nakonec vždy odhalí, proto nemá smysl stavět své plány na nepoctivosti.
+
+Část 5–7 (Dobré vedení a odmítnutí hněvu): Skutečný lídr – v práci, v rodině i ve společnosti – neřídí druhé pomocí strachu a agrese, ale skrze odbornost, rozvahu a péči o svěřené prostředí. Potlačením hněvu a řešením sporů s chladnou hlavou vytváříš podmínky pro dlouhodobý mír a prosperitu.
+
+Část 8–10 (Boj proti opojení a toxicitě): Zlozvyky, nezodpovědnost a opojení (jakoukoliv formou závislosti či slepé moci) zatemňují úsudek a ničí všechno dobré kolem. Budování stabilního života vyžaduje čistou mysl a schopnost stát si za zdravými zásadami.
+
+Část 11–12 (Každodenní hrdinství): „Spasitelem“ ve svém okolí je každý, kdo odmítá násilí, aktivně zlepší alespoň malou část světa a jedná spravedlivě. Skutečná změna k lepšímu nevychází z velkých gest, ale z poctivých činů v každodenním životě.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 49</h3>
+                    <div class="prayer-text">
+Mně, jenž jsem usiloval získat nespokojené pro věc Pravdy, mně byl protistojící Bandva tvrdošíjným nepřítelem! Přijď ke mně s Tvým darem nápomocné milosti, ó Mazdo! Skrze Tvou Dobrou Mysl nás inspiruj k překonání tohoto zla!
+
+Učení tohoto zlého Bandvy mě již dlouho brzdí v mé práci. Tento škodlivý muž odpadl od Pravdy a Práva! Nedbá o to, že správné smýšlení Armaity přináší rozkvět, je nepropustný vůči vlivu Dobré Mysli!
+
+Podle Tvé víry, ó Mazdo, je volba Spravedlnosti svým vlastním obhájením, a volba zla svou vlastní záhubou; proto vyhledávám a usiluji o společenství Dobré Mysli a zříkám se jakéhokoli spojení s následovníkem Zla.
+
+Ti, kdo svým zlým jazykem zvyšují svár, a ti se zlým úmyslem, kdo šíří násilnictví a rozklad, ti, kdo usilují pracovat se zločinci a ne s dobrými – věru, ti by ustanovili kacířství Ne-pravdy, zvrácený systém zla!
+
+Ale ten, kdo chová Tvou Cestu s Dobrou Myslí, je sám podporovatelem hojnosti a rozkvětu; je následovníkem moudrosti Pravdy, blízkým přítelem Oddanosti, ó Mazdo! Věru, bude v Tvém Království Nebeském se vším, co je uvnitř, ó Ahuro!
+
+Prosím Tě, ó Mazdo, zjev Svůj Svatý Plán, nechť Pravda vyhlásí Tvou Božskou Moudrost, abychom si vždy mohl zvolit a jednat správně a široce známými učinili pravdy Tvé Víry.
+
+Naslouchej tomu, ó Ahuro! Nechť naslouchá i ten, kdo je obdařen Dobrou Myslí, nechť slyší i ten, kdo je inspirován Duchem Pravdy. Kdo z mých příbuzných, kdo z mých přátel bude žít podle Tvých Zákonů a přinese uznání Tvé Víře mezi lidi?
+
+Dopřej Frašaoštrovi dobročinné spojenectví s Pravdou, věru, o to Tě žádám i já, ó Mazdo Ahuro; a nám dopřej Dobro v Tvém Svatém Království, kéž jsme po všechny časy Tvými inspirovanými posly!
+
+Nechť učitel zrozený k přinesení spásy slyší toto nařízení: Muž Pravdy nebude pracovat ani vládnout ve společenství se zlým lhářem. Duše podílející se na Právu obdrží vynikající odměnu při soudu, ó Džamáspo!
+
+A toto, ó Mazdo, spočívá v Tvé péči: dobrá mysl a duše spravedlivých s duchem Oddanosti a úcty, chráněné v Tvém velkém Panství s nesmrtelnou mocí.
+
+Zlým vládcům, mužům zlých činů, zlých slov, zlých myšlenek – jejich zkažené duše jim půjdou naproti s tím, co je odporné. V Domě Lži věru naleznou svůj příbytek.
+
+Jak mi přijdeš na pomoc, ó Pravdo, Zarathuštrovi, který Tě vzývá? Co pro mě máš, ó Dobrá Mysli? A mně, který jsem v Tvé milosti s písněmi chvály byl, ó Mazdo Ahuro, dopřej to, co je Nejlepší.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–4: Tvrdohlaví odporci a manipulátoři se často snaží brzdit pozitivní změny a šířit rozkol. Nenech se jejich toxicitou stáhnout dolů – volba poctivosti nesouvisí s tím, jak se chovají ostatní, a zlé jednání se nakonec vždy obrátí proti svému původci.
+
+Část 5–8: Lidé, kteří tvoří, pomáhají a drží se pravdy, přirozeně vytvářejí stabilní a hojné prostředí. Hledej ve svém životě i práci spojence s čistými úmysly a vyhýbej se spolupráci s lháři.
+
+Část 9–12: Nikdy neuzavírej kompromisy s nečestností jen proto, abys získal dočasný vliv či výhodu. Tvá vnitřní integrita, poctivé činy a rozvaha jsou nejlepší ochranou i zárukou trvalé hodnoty.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 50</h3>
+                    <div class="prayer-text">
+Na koho se mohu spolehnout, že mi pomůže? Na koho se mohu spolehnout, že ochrání můj majetek? Na nikoho jiného než na Tvou Pravdu a na Tebe Samotného, ó Mazdo Ahuro, když Jsi vzýván s Osvícenou Myslí!
+
+Řekni mi, ó Mazdo, jak by měli jednat a pracovat ti, kdo pečují o tento radost přinášející svět s jeho pastvinami? Ti, kdo žijí poctivé životy pod opakující se nádherou slunce, stranou od odpůrců, a žijí uspořádané životy v harmonii se zákonem Pravdy – ti sklidí Požehnanou Odměnu!
+
+Odhodlaný člověk, který veden principy Tvé Víry rozšiřuje rozkvět řádu na své sousedy a obdělává půdu, kterou zlí nyní nechávají pustou, získává skrze Spravedlnost Požehnanou Odplatu, kterou Tvá Dobrá Mysl slíbila v Tvém Království Nebeském.
+
+S Pravdou hýbající mým srdcem, s Nejlepší Myšlenkou inspirující mou mysl, se vší mocí duchovní síly ve mně Tě uctívám, ó Mazdo, s písněmi Tvé chvály! A Nakonec, až budu stát u Tvé brány, uslyším ozvěnu svých modliteb z Tvého Příbytku Písní.
+
+K Tvému Prorokovi inspirovanému Tvou Pravdou, ó Mazdo, k Tvému Prorokovi zjevujícímu Tvé Poselství v hymnách, přijď se Svou Milostí, ó Pane! Dej mu Svou ruku zjevné pomoci, aby mohl přinést osvícení a blaženost.
+
+Když pozvedám svůj hlas v písních Tvé úcty, podnícen Pravdou, abych směřoval svou řeč na správnou cestu moudrosti, dej Zarathuštrovi, ó Mazdo, inspiraci Dobré Mysli k vyhlášení Tvého nařízení.
+
+Zapřaženi jsou plamenní oři Tvé úcty; jak se blížíme k Tvé říši, ó Mazdo, přijď, Velká Moci, ke mně se svým duchem Pravdy a Svou Dobrou Myslí, pospěš mi tak na pomoc!
+
+Zpívaje hymny Tvé chvály, ó Pane, a s rozepjatýma rukama se k Tobě přiblížím. V uctívání, s osvícením z Pravdy a Dobré Mysli věru dosáhnu Tvé Přítomnosti, ó Mazdo!
+
+S těmito hymnami k Tobě přijdu, ó Pane! K Tvé Pravdě, podporován činy Dobré Mysli; vyhledávaje opravdově odměnu dobročinných a přijímaje ji, budu pánem svého vlastního osudu.
+
+Dobré činy, které vykonáme, i ty, které jsme již vykonali, věci, které jsou vzácné oku osvícenému Dobrou Myslí, záře slunce třpytící se dolů, jež oznamuje den – ty všechny v souladu s Pravdou svědčí o Tvé slávě, ó Mazdo Ahuro!
+
+Básníkem Tvé chvály se nazývám, ó Mazdo! A takovým zůstanu, ó Pravdo, dokud trvá má síla; nechť mi Stvořitel Světa pomáhá skrze Dobrou Mysl, skrze Jeho Milost nechť se stane to, co nejvíce podpoří Velkou Věc!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–3 (Péče o svět a poctivá práce): Skutečná jistota a hodnota v životě nepramení z vnějších slibů, ale z poctivé práce a stavění na pravdě. Když se staráš o své prostředí, zvelaďuješ to, co druzí zanedbávají, a pomáháš lidem kolem sebe, buduješ stabilní rozkvět pro všechny.
+
+Část 4–6 (Integrita a jasná řeč): Pokud myslíš a mluvíš v souladu se svým nejlepším svědomím, získává tvé slovo váhu. Moudrost a jasná komunikace pomáhají řešit konflikty a vnášejí do zmatků každodenního života řád.
+
+Část 7–9 (Aktivní tvorba vlastního osudu): Být pánem svého osudu znamená vzít odpovědnost do vlastních rukou. Spojením dobrého úmyslu, správného uvažování a konkrétních činů získáváte vnitřní svobodu i odměnu v podobě smysluplného života.
+
+Část 10–11 (Radost ze života a vytrvalost): Krása světa i výsledky poctivé práce stojí za to, abychom o ně pečovali a chránili je. Pokud zůstaneš věrný svým hodnotám a nepřestaneš tvořit dobro, tvé úsilí zanechá trvalou a pozitivní stopu.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 51</h3>
+                    <div class="prayer-text">
+Spravedlivá vláda je ze všech nejvíce žádoucí, přinášející požehnání a dobré osudy v míře nejvyšší. Vedená zákonem Pravdy, podepřená oddaností a horlivostí, rozkvétá v Nejlepší Řád, Království Nebeské! Abych toho dosáhl, budu pracovat nyní i navždy.
+
+Dopřej mi, ó Mazdo, Své Panství Spravedlnosti, které je Tvé od počátku. A Ty, ó duchu Správného Smýšlení, dopřej mi sílu vůle a věnuj Svá požehnání tomu, kdo Tě uskutečňuje neustálou službou s Dobrou Myslí.
+
+Ti všichni se věru shromažďují u Tebe, ó Mazdo, ti, kdo vykonali Tvé dílo, jejichž činy jsou v souladu s Pravdou, jejichž slova vycházejí z Dobré Mysli, jejichž Inspirátorem Jsi od samého počátku!
+
+Kde najdeme bezpečí před hrozbou újmy? Kde soucit pro náš nejistý stav? Kdy Pravda dospěje ke svému? Kde je moc Svaté Dobrotivosti? Kde je osvícení Dobré Mysli? A kam, ó Mazdo, směřuje Tvé Panství?
+
+Na tyto všechny otázky se ptáme, abychom přijímajíce vedení od Pravdy mohli pracovat pro blaho stvoření, vždy moudří v oddanosti, vždy poctiví v činu, uznávajíce Učitele Pravdy určeného pro spravedlivé blaho lidí.
+
+Při posledním obratu života spravedlivému, který učinil správnou volbu podle Jeho normy, Ahura Mazda, Pán soudce, ve Své svrchované Moci dopřeje konec lepší než dobrý. Ale tomu, kdo nebude sloužit věci dobra, dá konec horší než špatný – při posledním obratu života.
+
+Ó Tvůrce Světa! Ó Stvořiteli vod a rostlin! Dopřej mi Svá požehnání Dokonalosti a Nesmrtelnosti! Ó Nejštědřejší Duchu, dej mi trvalou sílu k uskutečnění Tvého oznámeného záměru s pomocí Dobré Mysli.
+
+Tvým jménem tedy promluvím, ó Mazdo, jako ten, kdo ví, k těm, kdo by chtěli vědět: „Zlo je podílem ničemných, ale blaženost pro toho, kdo stojí při Spravedlnosti.“ Nechť je tato zpráva oznámena s radostí moudrým!
+
+S jakým porozuměním, ó Mazdo, dáš soud dvěma soupeřícím stranám skrze Svůj oheň, znamení konečné zkoušky tavením? Nechť je zde znamení oddělení: zničení zla od blaženosti spravedlivých!
+
+Ten, kdo usiluje mě zničit, ó Mazdo, bez příčiny a bez spravedlnosti, je výhonkem zla, škodlivý všemu živému. Zde vzývám ducha Pravdy, aby ke mně přišel s Tvou vznešenou odměnou, ó Mazdo!
+
+Kde je ten muž, ó Mazdo, který přijde jako přítel Spitamy Zarathuštry, který se poradí s Pravdou, který obdařen horlivostí Štědré Armaity a inspirován Dobrou Myslí bude způsobilý pro šíření Velké Věci?
+
+Na tomto mostě pomíjivého pozemského života žádní následovníci zlých pánů nepotěšili Zarathuštru Spitamu; Tvůj služebník toužící po vznešeném dosažení bude s upřímností usilovat o odražení jejich snah.
+
+Nespravedlnost zlých zahyne před Právem pravdomluvných. Stoje u Mostu Soudců, evilná duše vidí cestu spravedlivých, ale zlo jejích činů a slova jejího zlého jazyka se ukáží jako její pouta; ve strachu zjišťuje, že selhává.
+
+Zlí Karpanové nekáží zákony urovnaného a pokojného života. Způsobují utrpení zemi a jejím tvorům; jejich činy a jejich doktríny je nakonec odkáží do Domu Lži.
+
+Příbytek Písní, kde byl Ahura Mazda první přítomností, je Požehnanou Odměnou, určenou mnou, Zarathuštrou, pro podporovatele Velké Věci! Bude vám dopřána, pokud přijmete osvícení Dobré Mysli, pokud půjdete po cestě Pravdy.
+
+Král Vištáspa skrze spravedlivou moc uchopil Velkou Věc. Inspirovaná Moudrost doktríny k němu dorazila, Moudrost Dobré Víry, kterou Svatý Ahura Mazda vymyslel skrze Univerzální Zákon Pravdy. Nechť je tak vyhlášeno provolání spásy.
+
+Mně Frašaoštra Hvogva projevil odevzdání se Věci. Nechť mu Mazda Ahura dopřeje nejhlubší pravdy dobré Víry, nechť mu Mazda dá Vůli k vyhlášení Věci Pravdy.
+
+Džamáspa Hvogva toužící po osvícené moci skrze Pravdu si zvolil Moudrost Tvé Víry; a takto vole dosahuje Království Dobré Mysli. Dopřej, ó Pane, abychom tak učili lidi, aby vždy hledali svou ochranu v Tobě.
+
+Ó Maidjomaho z rodu Spitama, stejně jako ty, muž, který s moudrostí dosáhne vhledu do Víry, zasvětí svůj život skrze plodné činy lepší existenci pro všechny a poučí je v Zákonech Pravdy a Práva určených Mazdou – ten muž věru posloužil Velké Věci!
+
+Ó vy všichni, pracující s jednou vůlí, nechť Pravda, Dobrá Myšlenka a Správné Smýšlení, skrze něž postupujete k dokonalosti, vám přinesou vytoužené štěstí! Ó Mazdo, očekávajíce tuto Blaženost od Tebe, svou uctivou poctu Ti nabízíme!
+
+Člověk oddanosti je dobročinný pro všechny. Je dobročinný pro svou moudrost, pro své uskutečnění pravdy, pro dobrotu ve svých myšlenkách, ve svých slovách, ve svých činech. Jemu Ahura Mazda dopřeje Království Dobré Mysli a věru, po tomto požehnání toužím i já!
+
+Dobří lidé spravedlivého uctívání, ti, kdo byli dříve, i ti, kdo existují nyní, které Ahura Mazda dobře zná – ty vzývám ve svých modlitbách jejich jmény a přiblížím se k nim s hlubokou úctou.
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–5 (Spravedlivé vedení a bezpečnost): Správně fungující společnost i tým potřebuje vedení, které staví na poctivosti, transparentnosti a péči o lidi. Otázky po bezpečnosti a budoucnosti se řeší tak, že každý přispívá k celkovému blahu poctivou prací a rozumným rozhodováním.
+
+Část 6–10 (Osobní odpovědnost a zkouška časem): Každá skrytá nečestnost a snaha škodit druhým nakonec vyjde najevo. Zkoušky v životě (symbolický „žhavý kov“) prověří, kdo stavěl na pevných hodnotách a kdo na manipulaci a sobectví.
+
+Část 11–15 (Spojenectví pro dobrou věc): Když se ocitneš pod tlakem nebo v nejistotě, opři se o lidi, kteří mají čisté úmysly. Slepá touha po moci a ignorování potřeb druhých svádí k chybám, na které člověk v konečném zúčtování doplatí vlastním strachem a výčitkami svědomí.
+
+Část 16–22 (Společný pokrok a vzory): Když lidé spojí své síly, odbornost a dobré úmysly, mohou reálně zlepšit své prostředí. Inspiruj se těmi, kdo jednali spravedlivě před tebou, a sám se staň spolehlivým člověkem, jehož slova i činy přinášejí užitek ostatním.
+                    </div>
+                </div>
+
+                <div class="prayer-card">
+                    <h3 class="prayer-title">Yasna 53</h3>
+                    <div class="prayer-text">
+Nejvyšší touhy Zarathuštry Spitamy dosahují naplnění, ó Mazdo, když mu pro jeho spravedlnost dopřáváš blaženou existenci trvající po všechny časy; když se k němu všichni nakonec obrátí, aby přijali a praktikovali principy Dobrého Náboženství!
+
+Nechť v myšlence, slově i činu pokročí k potěšení Mazdy s uctivým uctíváním – král Vištáspa, Frašaoštra i následovníci Zarathuštry Spitamy. Nechť učí všechny držet se stanovené přímé cesty, oznámené duchovními učiteli a určené Ahurou.
+
+Pouručiště, výhonku rodů Haečataspovců a Spitamovců, nejmladší z dcer Zarathuštrových, dopřej trvalou pomoc Dobré Mysli, silnou podporu Tvé Pravdy, aby se radila s osvíceným rozumem a s oddaností jednala tak, jak moudrost vede!
+
+(Pouručišta:) Věru jsem si ho jako spravedlivá zvolila a budu ctít otce i manžela a býti spravedlivá k šlechticům i rolníkům. Pro spravedlnost nechť je naším dědictvím záře Dobré Mysli; nechť Mazda Ahura dopřeje požehnání Dobré Víry po všechny časy!
+
+(Zarathuštra:) Tato slova obracím k vám, dívky, které se vdáváte, tyto rady dávám vám, ženichové: dbejte na ně ve svých myslích a vezměte si je k srdci. Nechť jeden druhého chová v úctě se Spravedlností – pak vám věru bude patřit odměna šťastného života.
+
+Tak tomu věru je, ó vy muži a ženy! Žádné štěstí nemůže být vaše, pokud duch Falešnosti řídí vaše životy. Svlékněte ze sebe pouta, která vás řetězí k Ne-pravdě. Spokojenost spojená s nečestností nebo se škodou druhým je vězením pro toho, kdo ji hledá; nevěrní a zlí přinášejí žal druhým a ničí svůj vlastní budoucí duchovní život.
+
+Ó vy muži a ženy! Když věrná horlivost inspiruje váš život, když jsou poskvrněné myšlenky a úmysly vykořeněny, když je zlo ve vás navždy zničeno, tehdy vám bude patřit Požehnaná Odměna za Dobré Dílo. A pokud selžete, „Běda, běda“ budou vaše poslední slova!
+
+Nechť zločinci zůstanou zmařeni ve svém přání, nechť jsou ponecháni zmatku a zkáze! Nechť ti ctnostných principů zmaří jejich úmysly, zabrání jejich škodám a uvolní cestu pro příchod štěstí a míru do našich skromných příbytků! Nechť Velký Strážce ctnosti přivede zlo vniveč – a nechť je to rychle!
+
+Muži zlého vyznání trápí Tvé následovníky, ó Pane! Usilují o odsouzení hodných, o opovrhování dobrými. Kde je spravedlivé panství, které je zasáhne a zbaví je svobody? Ó Mazdo, Tvá je svrchovaná Moc, skrze niž dáš spravedlivě žijícím a potřebným jejich konečný lepší podíl!
+                    </div>
+                    <div class="prayer-section-title">Výklad pro běžný život</div>
+                    <div class="prayer-text">
+Část 1–2 (Udržování cesty a tradice): Trvalý úspěch a vnitřní klid vycházejí z vytrvalosti a dodržování ověřených zásad poctivosti, které se předávají z generace na generaci.
+
+Část 3–5 (Partneři, rodina a vzájemná úcta): Zákazník, partner i rodina si zaslouží jednání založené na rovnosti a úctě. Šťastný vztah i manželství nevznikají automaticky, ale vyžadují svobodnou volbu, rozvahu a neustálou vzájemnou péči.
+
+Část 6–7 (Odmítnutí nečestnosti ve vztazích): Žádné krátkodobé potěšení nebo zisk nestojí za ztrátu cti a zrazení důvěry. Sobecké a manipulativní jednání ničí jak vztahy kolem tebe, tak tvůj vlastní vnitřní klid.
+
+Část 8–9 (Ochrana domova a společenství): Aktivně chraň své prostředí před lidmi, kteří se snaží škodit a rozvracet. Skutečné bezpečí a spravedlivá odměna přicházejí tehdy, když poctiví lidé drží spolu a nenechají se zastrašit těmi, kdo zneužívají moc.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Zoroastrismus. Kéž pravda a světlo provází vaše kroky.
+    </footer>
+
+    <!-- Informace o Cookies (EU a ČR) -->
+    <div id="cookie-banner">
+        <div class="cookie-text">
+            <strong>Ochrana soukromí a soubory cookies</strong><br>
+            Tato webová stránka používá k zajištění základní funkčnosti a k analýze návštěvnosti pouze technicky nezbytné soubory cookies, 
+            což je plně v souladu s legislativou Evropské unie (GDPR, ePrivacy) a zákony České republiky. 
+            Pokračováním v prohlížení souhlasíte s jejich používáním.
+        </div>
+        <button class="cookie-btn" onclick="acceptCookies()">Rozumím a přijímám</button>
+    </div>
+
+    <!-- JavaScript pro fungování SPA a Cookies -->
+    <script>
+        // Funkce pro přepínání podstránek (SPA princip)
+        function switchPage(pageId) {
+            // Skrýt všechny sekce
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Zobrazit zvolenou sekci
+            document.getElementById(pageId).classList.add('active');
+            
+            // Zvýraznit aktivní link v menu
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-target') === pageId) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Zavřít mobilní menu, pokud je otevřené
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if(navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+            
+            // Posun nahoru při změně stránky
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Funkce pro otevírání/zavírání mobilního menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Funkce pro cookies banner
+        function acceptCookies() {
+            document.getElementById('cookie-banner').classList.remove('show');
+            // Uložení souhlasu do lokálního úložiště prohlížeče (bez serverových cookies)
+            localStorage.setItem('cookiesAccepted', 'true');
+        }
+
+        // Zobrazení cookies banneru po načtení stránky
+        window.addEventListener('load', () => {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(() => {
+                    document.getElementById('cookie-banner').classList.add('show');
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>
